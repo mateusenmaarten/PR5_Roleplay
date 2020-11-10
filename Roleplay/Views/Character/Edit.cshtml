@@ -1,0 +1,67 @@
+﻿@model PR5_Roleplay.Models.Character
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h2>Character</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CharacterID" />
+            <div class="form-group">
+                <label asp-for="PlayerID" class="control-label"></label>
+                <select asp-for="PlayerID" class="form-control" asp-items="ViewBag.PlayerID"></select>
+                <span asp-validation-for="PlayerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClassID" class="control-label"></label>
+                <input asp-for="ClassID" class="form-control" />
+                <span asp-validation-for="ClassID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CharacterName" class="control-label"></label>
+                <input asp-for="CharacterName" class="form-control" />
+                <span asp-validation-for="CharacterName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CharacterGender" class="control-label"></label>
+                <input asp-for="CharacterGender" class="form-control" />
+                <span asp-validation-for="CharacterGender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CharacterDescription" class="control-label"></label>
+                <input asp-for="CharacterDescription" class="form-control" />
+                <span asp-validation-for="CharacterDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CharacterAge" class="control-label"></label>
+                <input asp-for="CharacterAge" class="form-control" />
+                <span asp-validation-for="CharacterAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FavouriteWeapon" class="control-label"></label>
+                <input asp-for="FavouriteWeapon" class="form-control" />
+                <span asp-validation-for="FavouriteWeapon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HomeTown" class="control-label"></label>
+                <input asp-for="HomeTown" class="form-control" />
+                <span asp-validation-for="HomeTown" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

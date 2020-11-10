@@ -1,0 +1,78 @@
+﻿@model IEnumerable<PR5_Roleplay.Models.Character>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharacterAge)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FavouriteWeapon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeTown)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Player)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterGender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CharacterAge)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FavouriteWeapon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTown)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Player.PlayerID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CharacterID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CharacterID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CharacterID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
