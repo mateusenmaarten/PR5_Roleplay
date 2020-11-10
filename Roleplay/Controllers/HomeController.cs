@@ -22,7 +22,15 @@ namespace Roleplay.Controllers
         {
             return View();
         }
-
+        public IActionResult World()
+        {
+            return View();
+        }
+        public IActionResult Rules()
+        {
+            return View();
+        }
+     
         public IActionResult Privacy()
         {
             return View();
