@@ -24,6 +24,8 @@ namespace Roleplay.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            
+            builder.HasDefaultSchema("PR5");
             builder.Entity<Adventure>().ToTable("Adventure");
             builder.Entity<AdventurePlayer>().ToTable("AdventurePlayer");
             builder.Entity<Character>().ToTable("Character");
@@ -31,6 +33,8 @@ namespace Roleplay.Data
             builder.Entity<Player>().ToTable("Player");
             builder.Entity<Session>().ToTable("Session");
             builder.Entity<SessionPlayer>().ToTable("SessionPlayer");
+
+            base.OnModelCreating(builder);
         }
     }
 }
