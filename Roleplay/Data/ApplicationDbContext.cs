@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 
 namespace Roleplay.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -24,7 +25,8 @@ namespace Roleplay.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            
+            base.OnModelCreating(builder);
+
             builder.HasDefaultSchema("PR5");
             builder.Entity<Adventure>().ToTable("Adventure");
             builder.Entity<AdventurePlayer>().ToTable("AdventurePlayer");
@@ -33,8 +35,6 @@ namespace Roleplay.Data
             builder.Entity<Player>().ToTable("Player");
             builder.Entity<Session>().ToTable("Session");
             builder.Entity<SessionPlayer>().ToTable("SessionPlayer");
-
-            base.OnModelCreating(builder);
         }
     }
 }
