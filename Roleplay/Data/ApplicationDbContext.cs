@@ -23,6 +23,7 @@ namespace Roleplay.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<SessionPlayer> SessionPlayers { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

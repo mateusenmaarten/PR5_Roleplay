@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data;
+using Roleplay.ViewModels;
 
 namespace Roleplay.Controllers
 {
@@ -48,8 +49,10 @@ namespace Roleplay.Controllers
         // GET: Character/Create
         public IActionResult Create()
         {
-            ViewData["PlayerID"] = new SelectList(_context.Players, "PlayerID", "PlayerID");
-            return View();
+            CreateCharacterViewModel viewModel = new CreateCharacterViewModel();
+            viewModel.Character = new Character();
+            viewModel.CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID","CharacterClassName");
+            return View(viewModel);
         }
 
         // POST: Character/Create
@@ -57,16 +60,16 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CharacterID,PlayerID,ClassID,CharacterName,CharacterGender,CharacterDescription,CharacterAge,FavouriteWeapon,HomeTown")] Character character)
+        public async Task<IActionResult> Create(CreateCharacterViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(character);
+                _context.Add(viewModel.Character);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PlayerID"] = new SelectList(_context.Players, "PlayerID", "PlayerID", character.PlayerID);
-            return View(character);
+            viewModel.CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID", "CharacterClassName");
+            return View(viewModel);
         }
 
         // GET: Character/Edit/5
