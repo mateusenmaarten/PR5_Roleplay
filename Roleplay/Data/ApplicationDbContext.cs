@@ -28,12 +28,37 @@ namespace Roleplay.Data
             base.OnModelCreating(builder);
 
             builder.HasDefaultSchema("PR5");
+            //Adventure
             builder.Entity<Adventure>().ToTable("Adventure");
+            builder.Entity<Adventure>().Property(p => p.Title).IsRequired();
+            builder.Entity<Adventure>().Property(p => p.Summary).IsRequired();
+            builder.Entity<Adventure>().Property(p => p.Author).IsRequired();
+
+            //AdventurePlayer
             builder.Entity<AdventurePlayer>().ToTable("AdventurePlayer");
+
+            //Character
             builder.Entity<Character>().ToTable("Character");
+            builder.Entity<Character>().Property(p => p.CharacterName).IsRequired();
+            builder.Entity<Character>().Property(p => p.CharacterDescription).IsRequired();
+            builder.Entity<Character>().Property(p => p.CharacterName).IsRequired();
+
+            //CharacterClass
             builder.Entity<CharacterClass>().ToTable("CharacterClass");
+            builder.Entity<CharacterClass>().Property(p => p.CharacterClassName).IsRequired();
+            builder.Entity<CharacterClass>().Property(p => p.CharacterClassDescription).IsRequired();
+            builder.Entity<CharacterClass>().Property(p => p.CharacterClassIcon).IsRequired();
+
+            //Player
             builder.Entity<Player>().ToTable("Player");
+            builder.Entity<Player>().Property(p => p.Email).IsRequired();
+            builder.Entity<Player>().Property(p => p.UserName).IsRequired();
+            builder.Entity<Player>().Property(p => p.Password).IsRequired();
+
+            //Session
             builder.Entity<Session>().ToTable("Session");
+
+            //SessionPlayer
             builder.Entity<SessionPlayer>().ToTable("SessionPlayer");
         }
     }
