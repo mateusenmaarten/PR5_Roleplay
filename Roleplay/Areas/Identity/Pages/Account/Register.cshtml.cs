@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using PR5_Roleplay.Models;
 using Roleplay.Areas.Identity.Data;
 using Roleplay.Data;
 
@@ -93,8 +94,24 @@ namespace Roleplay.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new CustomUser { UserName = Input.Email, Email = Input.Email };
+                var user = new CustomUser 
+                { 
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    player = new Player
+                    {
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        UserName = Input.UserName,
+                        IsGameMaster = Input.IsGameMaster
+                    }
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                user.player.UserID = user.Id;
+                
+
+                await _context.SaveChangesAsync();
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

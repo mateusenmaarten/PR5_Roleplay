@@ -131,10 +131,14 @@ namespace Roleplay.Data
             );
 
             //Player
-            builder.Entity<Player>().ToTable("Player");
-            builder.Entity<Player>().Property(p => p.Email).IsRequired();
+            builder.Entity<Player>().ToTable("Player"); 
             builder.Entity<Player>().Property(p => p.UserName).IsRequired();
-            builder.Entity<Player>().Property(p => p.Password).IsRequired();
+          
+
+            builder.Entity<CustomUser>()
+                .HasOne(p => p.player)
+                .WithOne(c => c.CustomUser)
+                .HasForeignKey<Player>(p => p.UserID);
 
             //Session
             builder.Entity<Session>().ToTable("Session");
