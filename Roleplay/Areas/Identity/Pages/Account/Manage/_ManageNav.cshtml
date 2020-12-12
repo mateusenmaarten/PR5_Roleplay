@@ -1,4 +1,6 @@
-﻿@inject SignInManager<IdentityUser> SignInManager
+﻿@using Microsoft.AspNetCore.Identity
+@using Roleplay.Areas.Identity.Data
+@inject SignInManager<CustomUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
