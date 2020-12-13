@@ -23,8 +23,12 @@ namespace Roleplay.Controllers
         // GET: Character
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Characters.Include(c => c.Player);
-            return View(await applicationDbContext.ToListAsync());
+            ListCharacterViewModel viewModel = new ListCharacterViewModel();
+            viewModel.Characters = await _context.Characters
+                .Include(c => c.Player)
+                .Include(c => c.CharacterClass)
+                .ToListAsync();
+            return View(viewModel);
         }
 
         // GET: Character/Details/5

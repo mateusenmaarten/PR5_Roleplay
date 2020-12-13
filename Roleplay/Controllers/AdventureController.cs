@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data;
+using Roleplay.ViewModels;
 
 namespace Roleplay.Controllers
 {
@@ -22,7 +23,9 @@ namespace Roleplay.Controllers
         // GET: Adventure
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Adventures.ToListAsync());
+            ListAdventureViewModel viewModel = new ListAdventureViewModel();
+            viewModel.Adventures = await _context.Adventures.ToListAsync();
+            return View(viewModel);
         }
 
         // GET: Adventure/Details/5

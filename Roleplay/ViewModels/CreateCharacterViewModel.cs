@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using PR5_Roleplay.Models;
+using Roleplay.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace Roleplay.ViewModels
         public SelectList CharacterClasses { get; set; }
 
         public SelectList Players { get; set; }
+
     }
 }
