@@ -1,4 +1,4 @@
-﻿@model PR5_Roleplay.Models.Session
+﻿@model Roleplay.ViewModels.CreateSessionViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,34 +13,39 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h3>Plan the adventure</h3>
             <div class="form-group">
-                <label asp-for="AdventureID" class="control-label"></label>
-                <select asp-for="AdventureID" class ="form-control" asp-items="ViewBag.AdventureID"></select>
+                <label asp-for="Session.AdventureID" class="control-label">Adventure</label>
+                <select asp-for="Session.AdventureID" class="form-control" asp-items="Model.Adventures"></select>
+                <span asp-validation-for="Session.AdventureID" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <label asp-for="Session.Date" class="control-label"></label>
+                <div class='input-group date' id='datepicker'>
+                    <input asp-for="Session.Date" type="text" class="form-control" value="@DateTime.Now.ToString("dddd, dd MMMM yyyy")" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span asp-validation-for="Session.Date" class="text-danger"></span>
             </div>
+            
+            <h3>How was it?</h3>
             <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
-                <input asp-for="Time" class="form-control" />
-                <span asp-validation-for="Time" class="text-danger"></span>
+                <label asp-for="Session.Recap" class="control-label"></label>
+                <textarea rows="5" asp-for="Session.Recap" class="form-control"></textarea>
+                <span asp-validation-for="Session.Recap" class="text-danger"></span>
             </div>
+            @*<div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="Session.IsPlayed" /> @Html.DisplayNameFor(model => model.Session.IsPlayed)
+            </label>
+        </div>*@
             <div class="form-group">
-                <label asp-for="Recap" class="control-label"></label>
-                <input asp-for="Recap" class="form-control" />
-                <span asp-validation-for="Recap" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPlayed" /> @Html.DisplayNameFor(model => model.IsPlayed)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
+                <label asp-for="Session.Duration" class="control-label"></label>
+                <input asp-for="Session.Duration" type="text" class="form-control" value="3 hours" />
+                <span asp-validation-for="Session.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -53,3 +58,18 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts
+    {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <script>
+        $(function () {
+            $('#datepicker').datetimepicker({ format: 'yyyy-mm-dd hh:ii'});
+        });
+    </script>
+}

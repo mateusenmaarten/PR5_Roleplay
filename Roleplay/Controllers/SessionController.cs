@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data;
+using Roleplay.ViewModels;
 
 namespace Roleplay.Controllers
 {
@@ -48,8 +49,10 @@ namespace Roleplay.Controllers
         // GET: Session/Create
         public IActionResult Create()
         {
-            ViewData["AdventureID"] = new SelectList(_context.Adventures, "AdventureID", "AdventureID");
-            return View();
+            CreateSessionViewModel viewModel = new CreateSessionViewModel();
+            viewModel.Session = new Session();
+            viewModel.Adventures = new SelectList(_context.Adventures, "AdventureID", "Title");
+            return View(viewModel);
         }
 
         // POST: Session/Create
