@@ -19,16 +19,39 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="Character.PlayerID" class="control-label">Player</label>
+                <select asp-for="Character.PlayerID" class="form-control" asp-items="Model.Players"></select>
+                <span asp-validation-for="Character.PlayerID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="Character.CharacterClassID" class="control-label">Class</label>
                 <select asp-for="Character.CharacterClassID" class="form-control" asp-items="Model.CharacterClasses"></select>
                 <span asp-validation-for="Character.CharacterClassID" class="text-danger"></span>
             </div>
 
+            <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
             <div class="form-group">
-                <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
-                <input asp-for="Character.CharacterGender" class="form-control" />
+                <div class="form-check form-check-inline">
+                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio"  id="inlineRadioFemale" value="Female">
+                    <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioFemale">Female</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio"  id="inlineRadioMale" value="Male">
+                    <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioMale">Male</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio"  id="inlineRadioX" value="Unspecified">
+                    <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioX">Unspecified</label>
+                </div>
                 <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
             </div>
+
+            @*<div class="form-group">
+            <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
+            <input asp-for="Character.CharacterGender" class="form-control" />
+            <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
+        </div>*@
 
             <div class="form-group">
                 <label asp-for="Character.CharacterDescription" class="control-label">Description</label>

@@ -133,6 +133,7 @@ namespace Roleplay.Data
             //Player
             builder.Entity<Player>().ToTable("Player"); 
             builder.Entity<Player>().Property(p => p.UserName).IsRequired();
+            builder.Entity<Player>().Ignore(p => p.Name);
           
 
             builder.Entity<CustomUser>()

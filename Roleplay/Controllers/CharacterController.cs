@@ -52,6 +52,7 @@ namespace Roleplay.Controllers
             CreateCharacterViewModel viewModel = new CreateCharacterViewModel();
             viewModel.Character = new Character();
             viewModel.CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID","CharacterClassName");
+            viewModel.Players = new SelectList(_context.Players, "PlayerID", "Name");
             return View(viewModel);
         }
 
@@ -64,11 +65,17 @@ namespace Roleplay.Controllers
         {
             if (ModelState.IsValid)
             {
+                //viewModel.Character.CharacterGender = 
+
+
+
+
                 _context.Add(viewModel.Character);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             viewModel.CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID", "CharacterClassName");
+            viewModel.Players = new SelectList(_context.Players, "PlayerID", "Name");
             return View(viewModel);
         }
 

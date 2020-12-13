@@ -12,5 +12,7 @@ namespace Roleplay.ViewModels
         public Character Character { get; set; }
 
         public SelectList CharacterClasses { get; set; }
+
+        public SelectList Players { get; set; }
     }
 }

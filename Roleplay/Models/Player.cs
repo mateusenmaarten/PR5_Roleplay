@@ -11,6 +11,8 @@ namespace PR5_Roleplay.Models
         public int PlayerID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
+        public string Name => $"{FirstName} {LastName}";
         public string UserName { get; set; }
         public string Country { get; set; }
         public Boolean IsGameMaster { get; set; }

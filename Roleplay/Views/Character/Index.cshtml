@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CharacterClassID)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.CharacterName)
             </th>
             <th>
@@ -44,9 +41,6 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CharacterClassID)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.CharacterName)
             </td>
             <td>
@@ -65,7 +59,7 @@
                 @Html.DisplayFor(modelItem => item.HomeTown)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Player.PlayerID)
+                @Html.DisplayFor(modelItem => item.Player.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CharacterID">Edit</a> |
