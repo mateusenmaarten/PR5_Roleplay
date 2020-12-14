@@ -23,8 +23,14 @@ namespace Roleplay.Controllers
         // GET: Session
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Sessions.Include(s => s.Adventure);
-            return View(await applicationDbContext.ToListAsync());
+            ListSessionViewModel viewModel = new ListSessionViewModel();
+            viewModel.Sessions = await _context.Sessions
+                .Include(a => a.Adventure)
+                .Include(p => p.SessionPlayers)
+                .ToListAsync();
+
+            
+            return View(viewModel);
         }
 
         // GET: Session/Details/5
@@ -52,6 +58,8 @@ namespace Roleplay.Controllers
             CreateSessionViewModel viewModel = new CreateSessionViewModel();
             viewModel.Session = new Session();
             viewModel.Adventures = new SelectList(_context.Adventures, "AdventureID", "Title");
+            viewModel.SessionPlayers = new SelectList(_context.Players, "PlayerID", "Name");
+            viewModel.SelectedSessionPlayers = new List<int>();
             return View(viewModel);
         }
 
@@ -60,16 +68,48 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SessionID,AdventureID,Date,Time,Recap,IsPlayed,Duration")] Session session)
+        public async Task<IActionResult> Create(CreateSessionViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(session);
+                if (viewModel.SelectedSessionPlayers == null)
+                {
+                    viewModel.SelectedSessionPlayers = new List<int>();
+                }
+
+                List<SessionPlayer> playersInSession = new List<SessionPlayer>();
+                List<AdventurePlayer> playersInAdventure = new List<AdventurePlayer>();
+
+                foreach (int playerID in viewModel.SelectedSessionPlayers)
+                {
+                    //Wie speelt mee in de session
+                    SessionPlayer sessionPlayer = new SessionPlayer();
+                    sessionPlayer.PlayerID = playerID;
+                    sessionPlayer.SessionID = viewModel.Session.SessionID;
+
+                    //Welke spelers spelen het avontuur mee
+                    AdventurePlayer adventurePlayer = new AdventurePlayer();
+                    adventurePlayer.PlayerID = playerID;
+                    adventurePlayer.AdventureID = viewModel.Session.AdventureID;
+
+                    playersInSession.Add(sessionPlayer);
+                    playersInAdventure.Add(adventurePlayer);
+                }
+                _context.Add(viewModel.Session);
                 await _context.SaveChangesAsync();
+
+                Session session = await _context.Sessions
+                    .Include(s => s.SessionPlayers)
+                    .Include(a => a.Adventure.AdventurePlayers)
+                    .SingleOrDefaultAsync(x => x.SessionID == viewModel.Session.SessionID);
+                session.SessionPlayers.AddRange(playersInSession);
+                session.Adventure.AdventurePlayers.AddRange(playersInAdventure);
+
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdventureID"] = new SelectList(_context.Adventures, "AdventureID", "AdventureID", session.AdventureID);
-            return View(session);
+            return View(viewModel);
         }
 
         // GET: Session/Edit/5

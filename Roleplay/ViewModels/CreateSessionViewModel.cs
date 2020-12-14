@@ -12,5 +12,8 @@ namespace Roleplay.ViewModels
         public Session Session { get; set; }
 
         public SelectList Adventures { get; set; }
+
+        public IEnumerable<SelectListItem> SessionPlayers { get; set; }
+        public IEnumerable<int> SelectedSessionPlayers { get; set; }
     }
 }

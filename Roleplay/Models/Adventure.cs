@@ -15,7 +15,7 @@ namespace PR5_Roleplay.Models
         public string Author { get; set; }
 
         //navigation prop
-        public ICollection<AdventurePlayer> AdventurePlayers { get; set; }
+        public List<AdventurePlayer> AdventurePlayers { get; set; }
         public ICollection<Session> Sessions { get; set; }
     }
 }

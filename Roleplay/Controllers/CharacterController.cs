@@ -69,11 +69,6 @@ namespace Roleplay.Controllers
         {
             if (ModelState.IsValid)
             {
-                //viewModel.Character.CharacterGender = 
-
-
-
-
                 _context.Add(viewModel.Character);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

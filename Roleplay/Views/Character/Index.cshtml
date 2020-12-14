@@ -13,16 +13,17 @@
 
 <div class="container">
     <div class="row">
-        @foreach (var item in Model.Characters)
-        {
-
+        <div class="card-deck">
+            @foreach (var item in Model.Characters)
+            {
             <div class="col-sm-4">
-                <div class="card" style="width: 18rem;">
+
+                <div class="card">
                     <div class="card-header text-center">
                         @Html.DisplayFor(modelItem => item.CharacterName)
                     </div>
                     <div class="card-body text-center">
-                        <i width="200" heigth="200" class="@Html.DisplayFor(modelItem=>item.CharacterClass.CharacterClassIcon)"></i>
+                        <i class="@Html.DisplayFor(modelItem=>item.CharacterClass.CharacterClassIcon) fa-5x"></i>
                         <p></p>
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.CharacterClass.CharacterClassName)</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.CharacterDescription)</p>
@@ -31,15 +32,18 @@
                         <li class="list-group-item">Age: @Html.DisplayFor(modelItem => item.CharacterAge)</li>
                         <li class="list-group-item">Created by @Html.DisplayFor(modelItem => item.Player.Name) </li>
                     </ul>
-                    <div class="card-body">
+                    <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.CharacterID">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.CharacterID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.CharacterID">Delete</a>
                     </div>
                 </div>
+                
+                <p></p>
             </div>
-            <p></p>
-        }
+
+            }
+        </div>
     </div>
 </div>
 

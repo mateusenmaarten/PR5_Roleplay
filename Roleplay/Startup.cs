@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Roleplay.Areas.Identity.Data;
+using System.Globalization;
 
 namespace Roleplay
 {
@@ -73,6 +74,11 @@ namespace Roleplay
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            CultureInfo cultureInfoDutchBelgium = new CultureInfo("nl-BE");
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfoDutchBelgium;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfoDutchBelgium;
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

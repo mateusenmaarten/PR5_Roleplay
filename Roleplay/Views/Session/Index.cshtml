@@ -1,66 +1,48 @@
-﻿@model IEnumerable<PR5_Roleplay.Models.Session>
-
+﻿@model Roleplay.ViewModels.ListSessionViewModel
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Sessions</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create a new Session</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Time)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recap)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPlayed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Duration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adventure)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Recap)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPlayed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adventure.AdventureID)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SessionID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="container">
+    <div class="row">
+        <div class="card-deck">
+            @foreach (var item in Model.Sessions)
+            {
+                <div class="col-sm-4">
+
+                    <div class="card">
+                        <div class="card-header text-center">
+                            
+                        </div>
+                        <div class="card-body text-center">
+                            
+                            <p></p>
+                            <h5 class="card-title">This is a session</h5>
+                            <p class="card-text">test</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">test</li>
+                            <li class="list-group-item">test</li>
+                        </ul>
+                        <div class="card-footer">
+                            <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.SessionID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
+                        </div>
+                    </div>
+
+                    <p></p>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
