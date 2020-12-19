@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Roleplay.Areas.Identity.Data;
 using System.Globalization;
+using Microsoft.AspNetCore.Http;
 
 namespace Roleplay
 {
@@ -93,6 +94,12 @@ namespace Roleplay
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
+                //redirect when a user tries to access the register page
+                endpoints.MapGet("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+
+                endpoints.MapPost("/Identity/Account/Register", context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+
             });
 
             //CreateUserRoles(serviceProvider).Wait();
@@ -105,22 +112,33 @@ namespace Roleplay
 
             IdentityResult roleResult;
 
-            bool roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            //bool roleCheck = await RoleManager.RoleExistsAsync("Admin");
+            //if (!roleCheck)
+            //{
+            //    roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+            //}
+
+            //bool roleCheck = await RoleManager.RoleExistsAsync("GameMaster");
+            //if (!roleCheck)
+            //{
+            //    roleResult = await RoleManager.CreateAsync(new IdentityRole("GameMaster"));
+            //}
+
+            bool roleCheck = await RoleManager.RoleExistsAsync("Player");
             if (!roleCheck)
             {
-                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Player"));
             }
-
-            IdentityUser user = Context.Users.FirstOrDefault(u => u.Email == "roleplayAdmin@admin.be");
+            IdentityUser user = Context.Users.FirstOrDefault(u => u.Email == "jan@fake.com");
             if (user != null)
             {
                 DbSet<IdentityUserRole<string>> roles = Context.UserRoles;
-                IdentityRole adminRole = Context.Roles.FirstOrDefault(r => r.Name == "Admin");
-                if (adminRole != null)
+                IdentityRole role = Context.Roles.FirstOrDefault(r => r.Name == "Player");
+                if (role != null)
                 {
-                    if (!roles.Any(Ur => Ur.UserId == user.Id && Ur.RoleId == adminRole.Id))
+                    if (!roles.Any(Ur => Ur.UserId == user.Id && Ur.RoleId == role.Id))
                     {
-                        roles.Add(new IdentityUserRole<string>() { UserId = user.Id, RoleId = adminRole.Id });
+                        roles.Add(new IdentityUserRole<string>() { UserId = user.Id, RoleId = role.Id });
                         Context.SaveChanges();
                     }
                 }

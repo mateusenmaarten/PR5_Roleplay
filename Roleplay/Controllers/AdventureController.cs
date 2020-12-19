@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ using Roleplay.ViewModels;
 
 namespace Roleplay.Controllers
 {
+   
     public class AdventureController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -47,6 +49,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Adventure/Create
+        [Authorize(Roles = "Admin,GameMaster")]
         public IActionResult Create()
         {
             return View();
@@ -57,6 +60,7 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Create([Bind("AdventureID,Title,Summary,MainVillain,Genre,Author")] Adventure adventure)
         {
             if (ModelState.IsValid)
@@ -69,6 +73,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Adventure/Edit/5
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -89,6 +94,7 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Edit(int id, [Bind("AdventureID,Title,Summary,MainVillain,Genre,Author")] Adventure adventure)
         {
             if (id != adventure.AdventureID)
@@ -120,6 +126,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Adventure/Delete/5
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,6 +147,7 @@ namespace Roleplay.Controllers
         // POST: Adventure/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var adventure = await _context.Adventures.FindAsync(id);

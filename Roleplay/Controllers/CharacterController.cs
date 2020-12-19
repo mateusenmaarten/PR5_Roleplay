@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Character/Create
+        [Authorize(Roles = "Admin,GameMaster,Player")]
         public IActionResult Create()
         {
             CreateCharacterViewModel viewModel = new CreateCharacterViewModel();
@@ -65,6 +67,7 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> Create(CreateCharacterViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -79,6 +82,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Character/Edit/5
+        [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,6 +104,7 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> Edit(int id, [Bind("CharacterID,PlayerID,ClassID,CharacterName,CharacterGender,CharacterDescription,CharacterAge,FavouriteWeapon,HomeTown")] Character character)
         {
             if (id != character.CharacterID)
@@ -132,6 +137,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Character/Delete/5
+        [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -153,6 +159,7 @@ namespace Roleplay.Controllers
         // POST: Character/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var character = await _context.Characters.FindAsync(id);

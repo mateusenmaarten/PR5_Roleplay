@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Session/Details/5
+ 
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -53,6 +55,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Session/Create
+        [Authorize(Roles = "Admin,GameMaster")]
         public IActionResult Create()
         {
             CreateSessionViewModel viewModel = new CreateSessionViewModel();
@@ -68,6 +71,7 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Create(CreateSessionViewModel viewModel)
         {
             if (ModelState.IsValid)
@@ -113,6 +117,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Session/Edit/5
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -134,6 +139,7 @@ namespace Roleplay.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Edit(int id, [Bind("SessionID,AdventureID,Date,Time,Recap,IsPlayed,Duration")] Session session)
         {
             if (id != session.SessionID)
@@ -166,6 +172,7 @@ namespace Roleplay.Controllers
         }
 
         // GET: Session/Delete/5
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -187,6 +194,7 @@ namespace Roleplay.Controllers
         // POST: Session/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,GameMaster")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var session = await _context.Sessions.FindAsync(id);
