@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Roleplay.ViewModels
 {
-    public class CreateAdventureViewModel
+    public class EditAdventureViewModel
     {
         public Adventure Adventure { get; set; }
     }

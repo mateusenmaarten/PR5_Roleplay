@@ -12,37 +12,32 @@
 
 <div class="container">
     <div class="row">
-        <div class="card-deck">
-            @foreach (var item in Model.Sessions)
-            {
-                <div class="col-sm-4">
+        @foreach (var item in Model.Sessions)
+        {
 
-                    <div class="card">
-                        <div class="card-header text-center">
-                            
-                        </div>
-                        <div class="card-body text-center">
-                            
-                            <p></p>
-                            <h5 class="card-title">This is a session</h5>
-                            <p class="card-text">test</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">test</li>
-                            <li class="list-group-item">test</li>
-                        </ul>
-                        <div class="card-footer">
-                            <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.SessionID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
-                        </div>
+            <div class="col-sm-4 d-flex align-items-stretch">
+                <div class="card w-100">
+                    <div class="card-header text-center">
+                        @Html.DisplayFor(modelItem => item.Adventure.Title)
                     </div>
-
-                    <p></p>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Date)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Recap)</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><i class="fas fa-users"></i> @Html.DisplayFor(modelItem => item.SessionPlayers) </li>
+                        <li class="list-group-item"><i class="fas fa-book-reader"></i> Gamemaster </li>
+                        <li class="list-group-item"><i class="far fa-hourglass"></i>  @Html.DisplayFor(modelItem => item.Duration) hours</li>
+                    </ul>
+                    <div class="card-body">
+                        <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.SessionID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
+                    </div>
                 </div>
-
-            }
-        </div>
+            </div>
+            <p></p>
+        }
     </div>
 </div>
 

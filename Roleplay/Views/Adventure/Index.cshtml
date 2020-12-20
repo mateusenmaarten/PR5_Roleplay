@@ -5,22 +5,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-center">Index</h1>
+<h1 class="text-center">Adventures</h1>
 
 <p class="text-center">
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create a new adventure</a>
 </p>
 <div class="container">
     <div class="row">
         @foreach (var item in Model.Adventures)
         {
-
-            <div class="col-sm-4">
-                <div class="card" style="width: 18rem;">
+            <div class="col-sm-4 d-flex align-items-stretch">
+                <div class="card w-100 mb-5">
                     <div class="card-header text-center">
                         @Html.DisplayFor(modelItem => item.Title)
                     </div>
-                    <div class="card-body text-center">
+                    <div class="card-body text-center h-100">
                         <h5 class="card-title">Summary</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.Summary)</p>
                     </div>
@@ -31,12 +30,10 @@
                     </ul>
                     <div class="card-body">
                         <a asp-action="Edit" asp-route-id="@item.AdventureID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.AdventureID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.AdventureID">Delete</a>
                     </div>
                 </div>
             </div>
-            <p></p>
         }
     </div>
 </div>

@@ -30,24 +30,6 @@ namespace Roleplay.Controllers
             return View(viewModel);
         }
 
-        // GET: Adventure/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var adventure = await _context.Adventures
-                .FirstOrDefaultAsync(m => m.AdventureID == id);
-            if (adventure == null)
-            {
-                return NotFound();
-            }
-
-            return View(adventure);
-        }
-
         // GET: Adventure/Create
         [Authorize(Roles = "Admin,GameMaster")]
         public IActionResult Create()
@@ -61,15 +43,15 @@ namespace Roleplay.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,GameMaster")]
-        public async Task<IActionResult> Create([Bind("AdventureID,Title,Summary,MainVillain,Genre,Author")] Adventure adventure)
+        public async Task<IActionResult> Create(CreateAdventureViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(adventure);
+                _context.Add(viewModel.Adventure);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(adventure);
+            return View(viewModel);
         }
 
         // GET: Adventure/Edit/5
@@ -81,12 +63,14 @@ namespace Roleplay.Controllers
                 return NotFound();
             }
 
-            var adventure = await _context.Adventures.FindAsync(id);
-            if (adventure == null)
+            EditAdventureViewModel viewModel = new EditAdventureViewModel();
+            viewModel.Adventure = await _context.Adventures.FindAsync(id);
+          
+            if (viewModel.Adventure == null)
             {
                 return NotFound();
             }
-            return View(adventure);
+            return View(viewModel);
         }
 
         // POST: Adventure/Edit/5
@@ -95,9 +79,9 @@ namespace Roleplay.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,GameMaster")]
-        public async Task<IActionResult> Edit(int id, [Bind("AdventureID,Title,Summary,MainVillain,Genre,Author")] Adventure adventure)
+        public async Task<IActionResult> Edit(int id, EditAdventureViewModel viewModel)
         {
-            if (id != adventure.AdventureID)
+            if (id != viewModel.Adventure.AdventureID)
             {
                 return NotFound();
             }
@@ -106,12 +90,12 @@ namespace Roleplay.Controllers
             {
                 try
                 {
-                    _context.Update(adventure);
+                    _context.Update(viewModel.Adventure);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AdventureExists(adventure.AdventureID))
+                    if (!AdventureExists(viewModel.Adventure.AdventureID))
                     {
                         return NotFound();
                     }
@@ -122,7 +106,7 @@ namespace Roleplay.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(adventure);
+            return View(viewModel);
         }
 
         // GET: Adventure/Delete/5
@@ -134,14 +118,15 @@ namespace Roleplay.Controllers
                 return NotFound();
             }
 
-            var adventure = await _context.Adventures
+            EditAdventureViewModel viewModel = new EditAdventureViewModel();
+            viewModel.Adventure = await _context.Adventures
                 .FirstOrDefaultAsync(m => m.AdventureID == id);
-            if (adventure == null)
+            if (viewModel.Adventure == null)
             {
                 return NotFound();
             }
 
-            return View(adventure);
+            return View(viewModel);
         }
 
         // POST: Adventure/Delete/5

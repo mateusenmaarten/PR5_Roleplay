@@ -9,6 +9,7 @@ namespace Roleplay.ViewModels
 {
     public class ListSessionViewModel
     {
+        public Session Session { get; set; }
         public List<Session> Sessions { get; set; }
     }
 }
