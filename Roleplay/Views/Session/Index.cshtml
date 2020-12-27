@@ -16,20 +16,41 @@
         {
 
             <div class="col-sm-4 d-flex align-items-stretch">
-                <div class="card w-100">
+                <div class="card w-100 mb-5">
                     <div class="card-header text-center">
                         @Html.DisplayFor(modelItem => item.Adventure.Title)
                     </div>
                     <div class="card-body text-center">
+                        <p><i class="fas fa-book-reader"></i> @Html.DisplayFor(modelItem => item.SessionGamemaster) </p>
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.Date)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.Recap)</p>
+
+                        @if (item.IsPlayed)
+                        {
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.Recap)</p>
+                        }
+                        else
+                        {
+                            <p class="card-text">Planned Session</p>
+                        }
+
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-users"></i> @Html.DisplayFor(modelItem => item.SessionPlayers) </li>
-                        <li class="list-group-item"><i class="fas fa-book-reader"></i> Gamemaster </li>
-                        <li class="list-group-item"><i class="far fa-hourglass"></i>  @Html.DisplayFor(modelItem => item.Duration) hours</li>
+                        <li class="list-group-item text-center">
+                            <i class="fas fa-users"></i>
+                            <ul class="list-group list-group-flush">
+                                @foreach (string name in Model.GetPlayerNames(item))
+                                {
+                                    <li class="list-group-item"> @name </li>
+                                }
+
+                            </ul>
+                        </li>
+                        @if (item.IsPlayed)
+                        {
+                            <li class="list-group-item"><i class="far fa-hourglass"></i>  @Html.DisplayFor(modelItem => item.Duration) hours</li>
+                        }
                     </ul>
-                    <div class="card-body">
+                    <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.SessionID">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.SessionID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>

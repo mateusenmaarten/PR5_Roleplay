@@ -1,4 +1,4 @@
-﻿@model Roleplay.ViewModels.ListSessionViewModel
+﻿@model Roleplay.ViewModels.EditSessionViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -16,7 +16,7 @@
             <input type="hidden" asp-for="Session.SessionID" />
             <div class="form-group">
                 <label asp-for="Session.AdventureID" class="control-label"></label>
-                @*<select asp-for="Session.AdventureID" class="form-control" asp-items="Sessions.AdventureID"></select>*@
+                <select asp-for="Session.AdventureID" class="form-control" asp-items="Model.Adventures"></select>
                 <span asp-validation-for="Session.AdventureID" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,18 +24,32 @@
                 <input asp-for="Session.Date" class="form-control" />
                 <span asp-validation-for="Session.Date" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="SelectedSessionPlayers" class="control-label">Players</label>
+                <select asp-for="SelectedSessionPlayers" class="form-control" asp-items="Model.SessionPlayers"></select>
+                <span asp-validation-for="SelectedSessionPlayers" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Session.Recap" class="control-label"></label>
                 <textarea rows="5" asp-for="Session.Recap" class="form-control"></textarea>
                 <span asp-validation-for="Session.Recap" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="Session.SessionGamemaster" class="control-label">Gamemaster</label>
+                <input asp-for="Session.SessionGamemaster" class="form-control" />
+                <span asp-validation-for="Session.SessionGamemaster" class="text-danger"></span>
+            </div>
+
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Session.IsPlayed" /> @Html.DisplayNameFor(model => model.Session.IsPlayed)
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="Session.Duration" class="control-label"></label>
+                <label asp-for="Session.Duration" class="control-label">Duration in hours</label>
                 <input asp-for="Session.Duration" class="form-control" />
                 <span asp-validation-for="Session.Duration" class="text-danger"></span>
             </div>

@@ -11,7 +11,7 @@ namespace PR5_Roleplay.Models
         public int AdventureID { get; set; }
         public int PlayerID { get; set; }
         public int CharacterID { get; set; }
-        public Boolean isGameMaster { get; set; }
+       
 
         //navigation prop
         public Player Player { get; set; }

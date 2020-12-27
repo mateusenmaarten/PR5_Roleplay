@@ -15,6 +15,8 @@ namespace PR5_Roleplay.Models
         public Boolean IsPlayed { get; set; }
         public int Duration { get; set; }
 
+        public string SessionGamemaster { get; set; }
+
         //navigation prop
         public List<SessionPlayer> SessionPlayers { get; set; }
         public Adventure Adventure { get; set; }

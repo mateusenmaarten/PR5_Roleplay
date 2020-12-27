@@ -63,7 +63,8 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-    background-color: #f2d974
+    background-color: #f2d974;
+   
 }
 
 .footer {
@@ -74,8 +75,15 @@ body {
     line-height: 60px; /* Vertically center the text there */
 }
 
-a {
-    color: #965d62;
+
+.bg-dark {
+    background-color: #534e52 !important
 }
 
+.card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: ;
+    border-bottom: 1px solid rgba(0,0,0,.125)
+}
 
