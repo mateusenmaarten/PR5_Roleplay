@@ -15,7 +15,8 @@ namespace Roleplay.ViewModels
         public List<Player> Players { get; set; }
         public List<AdventurePlayer> AdventurePlayers { get; set; }
 
-        public List<string> GetPlayerNames(Session session){
+        public List<string> GetPlayerNames(Session session)
+        {
             List<int> playerIDs = new List<int>();
             foreach (var player in session.SessionPlayers)
             {
