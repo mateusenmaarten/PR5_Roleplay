@@ -24,6 +24,8 @@ a {
     border-color: #1861ac;
 }
 
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -63,17 +65,18 @@ html {
 
 body {
     /* Margin bottom by footer height */
-
+   
+    margin-bottom: 30px;
     background-color: #f2d974;
    
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
+    line-height: 50px; /* Vertically center the text there */
 }
 
 
@@ -98,4 +101,17 @@ body {
 .container{
     display: block;
     align-content: center;
+}
+
+.navbar {
+    position: fixed;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: .5rem 1rem;
 }
