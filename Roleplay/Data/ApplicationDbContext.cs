@@ -43,7 +43,7 @@ namespace Roleplay.Data
             builder.Entity<Character>().ToTable("Character");
             builder.Entity<Character>().Property(p => p.CharacterName).IsRequired();
             builder.Entity<Character>().Property(p => p.CharacterDescription).IsRequired();
-            builder.Entity<Character>().Property(p => p.CharacterName).IsRequired();
+            
 
             //CharacterClass
             builder.Entity<CharacterClass>().ToTable("CharacterClass");

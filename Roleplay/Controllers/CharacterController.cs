@@ -72,9 +72,17 @@ namespace Roleplay.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(viewModel.Character);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(viewModel.Character);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception e)
+                {
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
             viewModel.CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID", "CharacterClassName");
             viewModel.Players = new SelectList(_context.Players, "PlayerID", "Name");

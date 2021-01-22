@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Character.CharacterName" class="control-label">Name</label>
@@ -33,25 +33,19 @@
             <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
             <div class="form-group">
                 <div class="form-check form-check-inline">
-                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio"  id="inlineRadioFemale" value="Female">
+                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioFemale" value="Female">
                     <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioFemale">Female</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio"  id="inlineRadioMale" value="Male">
+                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioMale" value="Male">
                     <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioMale">Male</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio"  id="inlineRadioX" value="Unspecified">
+                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioX" value="Unspecified">
                     <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioX">Unspecified</label>
                 </div>
                 <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
             </div>
-
-            @*<div class="form-group">
-            <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
-            <input asp-for="Character.CharacterGender" class="form-control" />
-            <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
-        </div>*@
 
             <div class="form-group">
                 <label asp-for="Character.CharacterDescription" class="control-label">Description</label>
@@ -88,3 +82,6 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -12,7 +12,7 @@
 
 </head>
 <body>
-    @*<header>*@
+    <header>
         <nav class="navbar-dark navbar-expand-sm navbar-toggleable-sm bg-dark mb-3 align-content-center text-center">
      
                 <button class="navbar-toggler " type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -47,7 +47,7 @@
                 </div>
          
         </nav>
-    @*</header>*@
+    </header>
 
         <main role="main" class="content pb-4 container text-center text-dark" >
             @RenderBody()
@@ -61,7 +61,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>
