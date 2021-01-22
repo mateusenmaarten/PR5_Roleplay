@@ -14,44 +14,44 @@
 <body>
     <header>
         <nav class="navbar-dark navbar-expand-sm navbar-toggleable-sm bg-dark mb-3 align-content-center text-center">
-     
-                <button class="navbar-toggler " type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
-                    <partial name="_LoginPartial" />
-                    <ul class="navbar-nav flex-grow-1 ">
+            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
 
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="World">World</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Rules">Rules</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Character" asp-action="Index">Characters</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Adventure" asp-action="Index">Adventures</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Session" asp-action="Index">Sessions</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-dice-d20"> Roleplay</i></a>
-                </div>
-         
+                <partial name="_LoginPartial" />
+                <ul class="navbar-nav flex-grow-1 ">
+
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="World">World</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Rules">Rules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Character" asp-action="Index">Characters</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Adventure" asp-action="Index">Adventures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Session" asp-action="Index">Sessions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-dice-d20"> Roleplay</i></a>
+            </div>
+
         </nav>
     </header>
 
-        <main role="main" class="content pb-4 container text-center text-dark" >
-            @RenderBody()
-        </main>
+    <main role="main" class="content pb-4 container text-center text-dark">
+        @RenderBody()
+    </main>
 
 
     <footer class="footer text-light bg-dark ">
@@ -61,7 +61,9 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
+
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

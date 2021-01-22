@@ -15,6 +15,10 @@ using Microsoft.Extensions.Hosting;
 using Roleplay.Areas.Identity.Data;
 using System.Globalization;
 using Microsoft.AspNetCore.Http;
+using FluentValidation.AspNetCore;
+using PR5_Roleplay.Models;
+using FluentValidation;
+using Roleplay.Validator;
 
 namespace Roleplay
 {
@@ -36,7 +40,11 @@ namespace Roleplay
             services.AddDefaultIdentity<CustomUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddFluentValidation();
+
+            services.AddTransient<IValidator<Character>, CharacterValidator>();
+
             services.AddRazorPages();
 
             services.Configure<IdentityOptions>(options =>

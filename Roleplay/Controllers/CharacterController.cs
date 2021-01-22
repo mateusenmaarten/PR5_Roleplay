@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
@@ -70,6 +71,7 @@ namespace Roleplay.Controllers
         [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> Create(CreateCharacterViewModel viewModel)
         {
+
             if (ModelState.IsValid)
             {
                 try
@@ -80,10 +82,10 @@ namespace Roleplay.Controllers
                 }
                 catch (Exception e)
                 {
-
                     return RedirectToAction(nameof(Index));
                 }
             }
+
             viewModel.CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID", "CharacterClassName");
             viewModel.Players = new SelectList(_context.Players, "PlayerID", "Name");
             return View(viewModel);
