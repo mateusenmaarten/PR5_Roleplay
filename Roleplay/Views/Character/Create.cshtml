@@ -26,7 +26,7 @@
 
             <div class="form-group">
                 <label asp-for="Character.CharacterClassID" class="control-label">Class</label>
-                <select asp-for="Character.CharacterClassID" class="form-control" asp-items="Model.CharacterClasses"></select>
+                <select  asp-for="Character.CharacterClassID" class="form-control" asp-items="Model.CharacterClasses"></select>
                 <span asp-validation-for="Character.CharacterClassID" class="text-danger"></span>
             </div>
 
@@ -49,19 +49,19 @@
 
             <div class="form-group">
                 <label asp-for="Character.CharacterDescription" class="control-label">Description</label>
-                <input asp-for="Character.CharacterDescription" class="form-control" />
+                <input required asp-for="Character.CharacterDescription" class="form-control" />
                 <span asp-validation-for="Character.CharacterDescription" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Character.CharacterAge" class="control-label">Age</label>
-                <input asp-for="Character.CharacterAge" class="form-control" />
+                <input required asp-for="Character.CharacterAge" class="form-control" />
                 <span asp-validation-for="Character.CharacterAge" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="Character.FavouriteWeapon" class="control-label">Favourite Weapon</label>
-                <input asp-for="Character.FavouriteWeapon" class="form-control" />
+                <input required asp-for="Character.FavouriteWeapon" class="form-control" />
                 <span asp-validation-for="Character.FavouriteWeapon" class="text-danger"></span>
             </div>
 

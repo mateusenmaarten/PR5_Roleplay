@@ -11,8 +11,10 @@ namespace Roleplay.Validator
     {
         public CharacterValidator()
         {
-            RuleFor(x => x.CharacterName).NotNull();
-            RuleFor(x => x.CharacterAge).InclusiveBetween(18, 99);
+            RuleFor(x => x.CharacterName).NotEmpty();
+            RuleFor(x => x.CharacterAge).NotEmpty().InclusiveBetween(18, 99);
+            RuleFor(x => x.CharacterDescription).NotEmpty();
+            RuleFor(x => x.FavouriteWeapon).NotEmpty();
         }
     }
 }

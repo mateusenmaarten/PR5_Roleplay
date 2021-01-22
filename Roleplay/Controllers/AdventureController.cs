@@ -47,9 +47,17 @@ namespace Roleplay.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(viewModel.Adventure);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _context.Add(viewModel.Adventure);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception)
+                {
+                    return Redirect("~/Views/Shared/Error.cshtml");
+                }
+               
             }
             return View(viewModel);
         }
@@ -101,7 +109,7 @@ namespace Roleplay.Controllers
                     }
                     else
                     {
-                        throw;
+                        return Redirect("~/Views/Shared/Error.cshtml");
                     }
                 }
                 return RedirectToAction(nameof(Index));

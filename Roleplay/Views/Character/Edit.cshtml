@@ -1,4 +1,4 @@
-﻿@model PR5_Roleplay.Models.Character
+﻿@model Roleplay.ViewModels.CreateCharacterViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,46 +13,46 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CharacterID" />
+            <input type="hidden" asp-for="Character.CharacterID" />
             <div class="form-group">
-                <label asp-for="PlayerID" class="control-label"></label>
-                <select asp-for="PlayerID" class="form-control" asp-items="ViewBag.PlayerID"></select>
-                <span asp-validation-for="PlayerID" class="text-danger"></span>
+                <label asp-for="Character.PlayerID" class="control-label"></label>
+                <select  asp-for="Character.PlayerID" class="form-control" asp-items="Model.Players"></select>
+                <span asp-validation-for="Character.PlayerID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CharacterClassID" class="control-label"></label>
-                <input asp-for="CharacterClassID" class="form-control" />
-                <span asp-validation-for="CharacterClassID" class="text-danger"></span>
+                <label asp-for="Character.CharacterClassID" class="control-label"></label>
+                <input asp-for="Character.CharacterClassID" class="form-control" />
+                <span asp-validation-for="Character.CharacterClassID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CharacterName" class="control-label"></label>
-                <input asp-for="CharacterName" class="form-control" />
-                <span asp-validation-for="CharacterName" class="text-danger"></span>
+                <label asp-for="Character.CharacterName" class="control-label"></label>
+                <input required asp-for="Character.CharacterName" class="form-control" />
+                <span asp-validation-for="Character.CharacterName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CharacterGender" class="control-label"></label>
-                <input asp-for="CharacterGender" class="form-control" />
-                <span asp-validation-for="CharacterGender" class="text-danger"></span>
+                <label asp-for="Character.CharacterGender" class="control-label"></label>
+                <input asp-for="Character.CharacterGender" class="form-control" />
+                <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CharacterDescription" class="control-label"></label>
-                <input asp-for="CharacterDescription" class="form-control" />
-                <span asp-validation-for="CharacterDescription" class="text-danger"></span>
+                <label asp-for="Character.CharacterDescription" class="control-label"></label>
+                <input required asp-for="Character.CharacterDescription" class="form-control" />
+                <span asp-validation-for="Character.CharacterDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CharacterAge" class="control-label"></label>
-                <input asp-for="CharacterAge" class="form-control" />
-                <span asp-validation-for="CharacterAge" class="text-danger"></span>
+                <label asp-for="Character.CharacterAge" class="control-label"></label>
+                <input required asp-for="Character.CharacterAge" class="form-control" />
+                <span asp-validation-for="Character.CharacterAge" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FavouriteWeapon" class="control-label"></label>
-                <input asp-for="FavouriteWeapon" class="form-control" />
-                <span asp-validation-for="FavouriteWeapon" class="text-danger"></span>
+                <label asp-for="Character.FavouriteWeapon" class="control-label"></label>
+                <input required asp-for="Character.FavouriteWeapon" class="form-control" />
+                <span asp-validation-for="Character.FavouriteWeapon" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HomeTown" class="control-label"></label>
-                <input asp-for="HomeTown" class="form-control" />
-                <span asp-validation-for="HomeTown" class="text-danger"></span>
+                <label asp-for="Character.HomeTown" class="control-label"></label>
+                <input asp-for="Character.HomeTown" class="form-control" />
+                <span asp-validation-for="Character.HomeTown" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

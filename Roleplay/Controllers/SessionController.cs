@@ -75,42 +75,50 @@ namespace Roleplay.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (viewModel.SelectedSessionPlayers == null)
+                try
                 {
-                    viewModel.SelectedSessionPlayers = new List<int>();
+                    if (viewModel.SelectedSessionPlayers == null)
+                    {
+                        viewModel.SelectedSessionPlayers = new List<int>();
+                    }
+
+                    List<SessionPlayer> playersInSession = new List<SessionPlayer>();
+                    List<AdventurePlayer> playersInAdventure = new List<AdventurePlayer>();
+
+                    foreach (int playerID in viewModel.SelectedSessionPlayers)
+                    {
+                        //Wie speelt mee in de session
+                        SessionPlayer sessionPlayer = new SessionPlayer();
+                        sessionPlayer.PlayerID = playerID;
+                        sessionPlayer.SessionID = viewModel.Session.SessionID;
+
+                        //Welke spelers spelen het avontuur mee
+                        AdventurePlayer adventurePlayer = new AdventurePlayer();
+                        adventurePlayer.PlayerID = playerID;
+                        adventurePlayer.AdventureID = viewModel.Session.AdventureID;
+
+                        playersInSession.Add(sessionPlayer);
+                        playersInAdventure.Add(adventurePlayer);
+                    }
+                    _context.Add(viewModel.Session);
+                    await _context.SaveChangesAsync();
+
+                    Session session = await _context.Sessions
+                        .Include(s => s.SessionPlayers)
+                        .Include(a => a.Adventure.AdventurePlayers)
+                        .SingleOrDefaultAsync(x => x.SessionID == viewModel.Session.SessionID);
+                    session.SessionPlayers.AddRange(playersInSession);
+                    session.Adventure.AdventurePlayers.AddRange(playersInAdventure);
+
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
                 }
-
-                List<SessionPlayer> playersInSession = new List<SessionPlayer>();
-                List<AdventurePlayer> playersInAdventure = new List<AdventurePlayer>();
-
-                foreach (int playerID in viewModel.SelectedSessionPlayers)
+                catch (Exception)
                 {
-                    //Wie speelt mee in de session
-                    SessionPlayer sessionPlayer = new SessionPlayer();
-                    sessionPlayer.PlayerID = playerID;
-                    sessionPlayer.SessionID = viewModel.Session.SessionID;
 
-                    //Welke spelers spelen het avontuur mee
-                    AdventurePlayer adventurePlayer = new AdventurePlayer();
-                    adventurePlayer.PlayerID = playerID;
-                    adventurePlayer.AdventureID = viewModel.Session.AdventureID;
-
-                    playersInSession.Add(sessionPlayer);
-                    playersInAdventure.Add(adventurePlayer);
+                    return Redirect("~/Views/Shared/Error.cshtml");
                 }
-                _context.Add(viewModel.Session);
-                await _context.SaveChangesAsync();
-
-                Session session = await _context.Sessions
-                    .Include(s => s.SessionPlayers)
-                    .Include(a => a.Adventure.AdventurePlayers)
-                    .SingleOrDefaultAsync(x => x.SessionID == viewModel.Session.SessionID);
-                session.SessionPlayers.AddRange(playersInSession);
-                session.Adventure.AdventurePlayers.AddRange(playersInAdventure);
-
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
             }
             return View(viewModel);
         }

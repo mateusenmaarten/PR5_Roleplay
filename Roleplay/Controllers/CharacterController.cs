@@ -80,9 +80,9 @@ namespace Roleplay.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
-                    return RedirectToAction(nameof(Index));
+                    return Redirect("~/Views/Shared/Error.cshtml");
                 }
             }
 
@@ -99,14 +99,20 @@ namespace Roleplay.Controllers
             {
                 return NotFound();
             }
-
-            var character = await _context.Characters.FindAsync(id);
+            
+            Character character = await _context.Characters.FindAsync(id);
             if (character == null)
             {
                 return NotFound();
             }
-            ViewData["PlayerID"] = new SelectList(_context.Players, "PlayerID", "PlayerID", character.PlayerID);
-            return View(character);
+            CreateCharacterViewModel viewModel = new CreateCharacterViewModel
+            {
+                Character = character,
+                Players = new SelectList(_context.Players, "PlayerID", "Name"),
+                CharacterClasses = new SelectList(_context.CharacterClasses, "CharacterClassID", "CharacterClassName")
+            };
+
+            return View(viewModel);
         }
 
         // POST: Character/Edit/5
@@ -115,9 +121,9 @@ namespace Roleplay.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,GameMaster,Player")]
-        public async Task<IActionResult> Edit(int id, [Bind("CharacterID,PlayerID,ClassID,CharacterName,CharacterGender,CharacterDescription,CharacterAge,FavouriteWeapon,HomeTown")] Character character)
+        public async Task<IActionResult> Edit(int id, CreateCharacterViewModel viewModel)
         {
-            if (id != character.CharacterID)
+            if (id != viewModel.Character.CharacterID)
             {
                 return NotFound();
             }
@@ -126,24 +132,25 @@ namespace Roleplay.Controllers
             {
                 try
                 {
-                    _context.Update(character);
+                    _context.Update(viewModel.Character);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CharacterExists(character.CharacterID))
+                    if (!CharacterExists(viewModel.Character.CharacterID))
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                       
+                       return Redirect("~/Views/Shared/Error.cshtml");
                     }
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PlayerID"] = new SelectList(_context.Players, "PlayerID", "PlayerID", character.PlayerID);
-            return View(character);
+            
+            return View(viewModel);
         }
 
         // GET: Character/Delete/5

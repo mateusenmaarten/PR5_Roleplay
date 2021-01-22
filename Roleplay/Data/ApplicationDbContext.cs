@@ -43,6 +43,8 @@ namespace Roleplay.Data
             builder.Entity<Character>().ToTable("Character");
             builder.Entity<Character>().Property(p => p.CharacterName).IsRequired();
             builder.Entity<Character>().Property(p => p.CharacterDescription).IsRequired();
+            builder.Entity<Character>().Property(p => p.CharacterAge).IsRequired();
+            builder.Entity<Character>().Property(p => p.FavouriteWeapon).IsRequired();
             
 
             //CharacterClass
@@ -130,7 +132,7 @@ namespace Roleplay.Data
                    }
             );
 
-            //Player
+            //Player : moet niet worden aangemaakt tenzij uitbreiding spelersgroep
             builder.Entity<Player>().ToTable("Player"); 
             builder.Entity<Player>().Property(p => p.UserName).IsRequired();
             builder.Entity<Player>().Ignore(p => p.Name);
@@ -143,6 +145,8 @@ namespace Roleplay.Data
 
             //Session
             builder.Entity<Session>().ToTable("Session");
+            builder.Entity<Session>().Property(p => p.SessionGamemaster).IsRequired();
+            builder.Entity<Session>().Property(p => p.Date).IsRequired();
 
             //SessionPlayer
             builder.Entity<SessionPlayer>().ToTable("SessionPlayer");

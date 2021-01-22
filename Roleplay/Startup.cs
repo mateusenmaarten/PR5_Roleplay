@@ -44,6 +44,8 @@ namespace Roleplay
                 .AddFluentValidation();
 
             services.AddTransient<IValidator<Character>, CharacterValidator>();
+            services.AddTransient<IValidator<Adventure>, AdventureValidator>();
+            services.AddTransient<IValidator<Session>, SessionValidator>();
 
             services.AddRazorPages();
 
