@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data;
@@ -34,7 +34,9 @@ namespace Roleplay.Controllers
         [Authorize(Roles = "Admin,GameMaster")]
         public IActionResult Create()
         {
-            return View();
+            CreateAdventureViewModel viewModel = new CreateAdventureViewModel();
+            viewModel.Adventure = new Adventure();
+            return View(viewModel);
         }
 
         // POST: Adventure/Create

@@ -8,73 +8,71 @@
 <h1>Create character</h1>
 
 <hr />
+    <form class="container col-md-6" asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Character.CharacterName" class="control-label">Name</label>
+            <input required asp-for="Character.CharacterName" class="form-control" />
+            <span asp-validation-for="Character.CharacterName" class="text-danger"></span>
+        </div>
 
-        <form class="container col-md-6" asp-action="Create" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Character.CharacterName" class="control-label">Name</label>
-                <input required asp-for="Character.CharacterName" class="form-control" />
-                <span asp-validation-for="Character.CharacterName" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="Character.PlayerID" class="control-label">Player</label>
+            <select asp-for="Character.PlayerID" class="form-control" asp-items="Model.Players"></select>
+            <span asp-validation-for="Character.PlayerID" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Character.CharacterClassID" class="control-label">Class</label>
+            <select asp-for="Character.CharacterClassID" class="form-control" asp-items="Model.CharacterClasses"></select>
+            <span asp-validation-for="Character.CharacterClassID" class="text-danger"></span>
+        </div>
+
+        <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+                <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioFemale" value="Female">
+                <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioFemale">Female</label>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Character.PlayerID" class="control-label">Player</label>
-                <select asp-for="Character.PlayerID" class="form-control" asp-items="Model.Players"></select>
-                <span asp-validation-for="Character.PlayerID" class="text-danger"></span>
+            <div class="form-check form-check-inline">
+                <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioMale" value="Male">
+                <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioMale">Male</label>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Character.CharacterClassID" class="control-label">Class</label>
-                <select  asp-for="Character.CharacterClassID" class="form-control" asp-items="Model.CharacterClasses"></select>
-                <span asp-validation-for="Character.CharacterClassID" class="text-danger"></span>
+            <div class="form-check form-check-inline">
+                <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioX" value="Unspecified">
+                <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioX">Unspecified</label>
             </div>
+            <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
+        </div>
 
-            <label asp-for="Character.CharacterGender" class="control-label">Gender</label>
-            <div class="form-group">
-                <div class="form-check form-check-inline">
-                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioFemale" value="Female">
-                    <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioFemale">Female</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioMale" value="Male">
-                    <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioMale">Male</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input asp-for="Character.CharacterGender" class="form-check-input" type="radio" id="inlineRadioX" value="Unspecified">
-                    <label asp-for="Character.CharacterGender" class="form-check-label" for="inlineRadioX">Unspecified</label>
-                </div>
-                <span asp-validation-for="Character.CharacterGender" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Character.CharacterDescription" class="control-label">Description</label>
+            <textarea rows="5" required asp-for="Character.CharacterDescription" class="form-control"></textarea>
+            <span asp-validation-for="Character.CharacterDescription" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Character.CharacterDescription" class="control-label">Description</label>
-                <textarea rows="5" required asp-for="Character.CharacterDescription" class="form-control"></textarea>
-                <span asp-validation-for="Character.CharacterDescription" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Character.CharacterAge" class="control-label">Age</label>
+            <input required asp-for="Character.CharacterAge" class="form-control" />
+            <span asp-validation-for="Character.CharacterAge" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Character.CharacterAge" class="control-label">Age</label>
-                <input required asp-for="Character.CharacterAge" class="form-control" />
-                <span asp-validation-for="Character.CharacterAge" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Character.FavouriteWeapon" class="control-label">Favourite Weapon</label>
+            <input required asp-for="Character.FavouriteWeapon" class="form-control" />
+            <span asp-validation-for="Character.FavouriteWeapon" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Character.FavouriteWeapon" class="control-label">Favourite Weapon</label>
-                <input required asp-for="Character.FavouriteWeapon" class="form-control" />
-                <span asp-validation-for="Character.FavouriteWeapon" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="Character.HomeTown" class="control-label">Hometown</label>
+            <input asp-for="Character.HomeTown" class="form-control" />
+            <span asp-validation-for="Character.HomeTown" class="text-danger"></span>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Character.HomeTown" class="control-label">Hometown</label>
-                <input asp-for="Character.HomeTown" class="form-control" />
-                <span asp-validation-for="Character.HomeTown" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

@@ -79,7 +79,7 @@ body {
 }
 
 .jumbotron {
-    background-color: #9db4c0 !important;
+    background-color: #dcdcdd !important;
 }
 
 .card-header {
@@ -101,4 +101,8 @@ body {
 p{
     font:900 !important;
    font-family: fantasy !important;
+}
+
+label{
+    color: azure;
 }

@@ -41,8 +41,9 @@ namespace Roleplay
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews()
-                .AddFluentValidation();
+                .AddFluentValidation(fv => { });
 
+           
             services.AddTransient<IValidator<Character>, CharacterValidator>();
             services.AddTransient<IValidator<Adventure>, AdventureValidator>();
             services.AddTransient<IValidator<Session>, SessionValidator>();

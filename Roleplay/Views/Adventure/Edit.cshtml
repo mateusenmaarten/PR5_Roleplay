@@ -9,9 +9,8 @@
 
 <h2>Adventure</h2>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+
+        <form class="container col-md-6" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Adventure.AdventureID" />
             <div class="form-group">
@@ -43,8 +42,7 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
+
 
 <div>
     <a asp-action="Index">Back to List</a>
