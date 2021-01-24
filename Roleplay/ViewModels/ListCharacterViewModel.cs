@@ -9,5 +9,6 @@ namespace Roleplay.ViewModels
     public class ListCharacterViewModel
     {
         public List<Character> Characters { get; set; }
+
     }
 }

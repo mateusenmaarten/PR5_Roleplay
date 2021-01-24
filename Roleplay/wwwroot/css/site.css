@@ -3,7 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 
 /* Provide sufficient contrast against white background */
 a {
-    color: #0366d6;
+    color: #0466c8;
 }
 
 .btn-primary {
@@ -23,7 +23,7 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 @media (min-width: 768px) {
@@ -58,7 +58,11 @@ html {
 }
 
 body {
-    padding-top: 50px;
+    padding-top: 100px;
+    padding-bottom: 50px;
+    background-image: url("../images/pexels-pat-whelen-6528510.jpg");
+    background-position:top;
+    background-attachment: fixed;
 }
 
 .footer {
@@ -67,6 +71,34 @@ body {
     width: 100%;
     white-space: nowrap;
     line-height: 50px; /* Vertically center the text there */
+    background-color: #343a40 !important;
 }
 
+.navbar {
+    background-color: #343a40 !important;
+}
 
+.jumbotron {
+    background-color: #9db4c0 !important;
+}
+
+.card-header {
+    background-color: #4c5c68 !important;
+}
+
+.card-body {
+    background-color: #dcdcdd !important;
+}
+
+.card-footer {
+    background-color: #c5c3c6 !important;
+}
+
+.list-group-item {
+    background-color: #dcdcdd !important;
+}
+
+p{
+    font:900 !important;
+   font-family: fantasy !important;
+}

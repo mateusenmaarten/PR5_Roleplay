@@ -16,7 +16,7 @@
         {
             <div class="col-sm-4 d-flex align-items-stretch">
                 <div class="card w-100 mb-5">
-                    <div class="card-header text-center">
+                    <div class="card-header text-center text-light">
                         @Html.DisplayFor(modelItem => item.Title)
                     </div>
                     <div class="card-body text-center h-100">
@@ -28,7 +28,7 @@
                         <li class="list-group-item">Villain: @Html.DisplayFor(modelItem => item.MainVillain)</li>
                         <li class="list-group-item">Created by @Html.DisplayFor(modelItem => item.Author) </li>
                     </ul>
-                    <div class="card-body">
+                    <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.AdventureID">Edit</a> |
                         <a asp-action="Delete" asp-route-id="@item.AdventureID">Delete</a>
                     </div>

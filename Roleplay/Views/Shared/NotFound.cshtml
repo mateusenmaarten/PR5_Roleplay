@@ -5,9 +5,9 @@
 
 
 
-<div class="text-danger text-center">
+<div class="jumbotron text-center">
     <h1 class="display-4">@ViewBag.ErrorMessage</h1>
-    <div class="alert alert-warning" role="alert">
+    <div>
         <p>404</p>
         <p><img class="img-thumbnail" src="~/images/labyrinth.png" width="200" height="200" /></p>
         <p>Image by <a href="https://pixabay.com/users/gdj-1086657/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2730731">Gordon Johnson</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2730731">Pixabay</a></p>
@@ -15,6 +15,8 @@
     <p class="lead">Your party has been defeated...</p>
     <p><img class="img-thumbnail" src="~/images/skull.png" width="500" height="250" /></p>
     <p>Image by <a href="https://pixabay.com/users/b0red-4473488/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2968614">b0red</a> from <a href="https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2968614">Pixabay</a></p>
+
+    <hr class="my-4">
     <a asp-action="index" asp-controller="home" class="btn btn-primary btn-lg" role="button">Try again</a>
 </div>
 

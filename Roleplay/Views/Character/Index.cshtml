@@ -17,22 +17,24 @@
             <div class="col-sm-4 d-flex align-items-stretch">
 
                 <div class="card w-100 mb-5">
-                    <div class="card-header text-center">
+                    <div class="card-header text-center text-light">
                         @Html.DisplayFor(modelItem => item.CharacterName)
                     </div>
                     <div class="card-body text-center">
                         <i class="@Html.DisplayFor(modelItem=>item.CharacterClass.CharacterClassIcon) fa-5x"></i>
                         <p></p>
+                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.CharacterGender)</h6>
                         <h5 class="card-title">@Html.DisplayFor(modelItem => item.CharacterClass.CharacterClassName)</h5>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.CharacterDescription)</p>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Age: @Html.DisplayFor(modelItem => item.CharacterAge)</li>
+                        <li class="list-group-item">Favourite weapon: @Html.DisplayFor(modelItem => item.FavouriteWeapon)</li>
+                        <li class="list-group-item">Hometown: @Html.DisplayFor(modelItem => item.HomeTown)</li>
                         <li class="list-group-item">Created by @Html.DisplayFor(modelItem => item.Player.Name) </li>
                     </ul>
                     <div class="card-footer">
                         <a asp-action="Edit" asp-route-id="@item.CharacterID">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.CharacterID">Details</a> |
                         <a asp-action="Delete" asp-route-id="@item.CharacterID">Delete</a>
                     </div>
                 </div>
