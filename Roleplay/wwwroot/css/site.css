@@ -58,11 +58,7 @@ html {
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-top: 50px;
-    margin-bottom: 130px;
-    background-color: #f2d974;
-   
+    padding-top: 50px;
 }
 
 .footer {
@@ -74,39 +70,3 @@ body {
 }
 
 
-.bg-dark {
-    background-color: #534e52 !important
-}
-
-.card-header {
-    padding: .75rem 1.25rem;
-    margin-bottom: 0;
-
-    border-bottom: 1px solid rgba(0,0,0,.125)
-}
-
-.col-md-3 {
-    
-    -ms-flex: 0 0 25%;
-    flex: 0 0 25%;
-    max-width: 50%;
-    
-}
-.container{
-    display: block;
-    align-content: center;
-}
-
-.navbar {
-    position: fixed;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -ms-flex-align: center;
-    align-items: center;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: .5rem 1rem;
-    width:100% ;
-}

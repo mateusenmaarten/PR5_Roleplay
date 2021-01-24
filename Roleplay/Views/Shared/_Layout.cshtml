@@ -11,7 +11,7 @@
     <script src="https://kit.fontawesome.com/607eff66ea.js" crossorigin="anonymous"></script>
 
 </head>
-<body>
+<body style=" padding-top: 50px">
             <nav class="navbar navbar-dark bg-dark navbar-expand-sm fixed-top">
 
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-dice-d20"> Roleplay</i></a>
@@ -45,15 +45,13 @@
                 </div>
             </nav>
 
-    <main role="main" class="content pb-4 container text-center text-dark">
+    <main role="main" class="content container text-center " >
         @RenderBody()
     </main>
 
 
-    <footer class="footer text-light bg-dark ">
-        <div class="text-light" style="margin-left:10px">
+    <footer class="footer text-light bg-dark" style="padding-left: 10px">
             &copy; 2020 - Roleplay - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
