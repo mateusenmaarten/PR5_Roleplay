@@ -5,15 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
-
-<h2>Session</h2>
+<h1>Create session</h1>
 <hr />
 
 
 <form class="container col-md-6" asp-action="Create">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <h3>Plan the adventure</h3>
     <div class="form-group">
         <label asp-for="Session.AdventureID" class="control-label">Adventure</label>
         <select required asp-for="Session.AdventureID" class="form-control" asp-items="Model.Adventures"></select>
@@ -31,7 +27,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Session.Date" class="control-label">Date and time</label>
-        <input required asp-for="Session.Date" class="form-control" />
+        <input required asp-for="Session.Date"  class="form-control"/>
         <span asp-validation-for="Session.Date" class="text-danger"></span>
     </div>
 
@@ -45,7 +41,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
 }

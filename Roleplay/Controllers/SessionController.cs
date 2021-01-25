@@ -33,25 +33,6 @@ namespace Roleplay.Controllers
             return View(viewModel);
         }
 
-        // GET: Session/Details/5
- 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var session = await _context.Sessions
-                .Include(s => s.Adventure)
-                .FirstOrDefaultAsync(m => m.SessionID == id);
-            if (session == null)
-            {
-                return NotFound();
-            }
-
-            return View(session);
-        }
 
         // GET: Session/Create
         [Authorize(Roles = "Admin,GameMaster")]
@@ -235,15 +216,16 @@ namespace Roleplay.Controllers
                 return NotFound();
             }
 
-            var session = await _context.Sessions
+            EditSessionViewModel viewModel = new EditSessionViewModel();
+            viewModel.Session = await _context.Sessions
                 .Include(s => s.Adventure)
                 .FirstOrDefaultAsync(m => m.SessionID == id);
-            if (session == null)
+            if (viewModel.Session == null)
             {
                 return NotFound();
             }
 
-            return View(session);
+            return View(viewModel);
         }
 
         // POST: Session/Delete/5
