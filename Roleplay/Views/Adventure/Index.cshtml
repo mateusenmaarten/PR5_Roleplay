@@ -7,9 +7,12 @@
 
 <h1 class="text-center">Adventures</h1>
 
-<p class="text-center">
-    <a asp-action="Create">Create a new adventure</a>
-</p>
+<p></p>
+    @if (User.IsInRole("GameMaster"))
+    {
+        <a asp-action="Create">Create a new adventure</a>
+    }
+<p></p>
 <div class="container">
     <div class="row">
         @foreach (var item in Model.Adventures)
@@ -29,8 +32,15 @@
                         <li class="list-group-item">Created by @Html.DisplayFor(modelItem => item.Author) </li>
                     </ul>
                     <div class="card-footer">
-                        <a asp-action="Edit" asp-route-id="@item.AdventureID">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.AdventureID">Delete</a>
+                        @if (User.IsInRole("GameMaster"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.AdventureID">Edit |</a>
+                        }
+                        @if (User.IsInRole("GameMaster"))
+                        {
+                            <a asp-action="Delete" asp-route-id="@item.AdventureID">Delete</a>
+                        }
+                        
                     </div>
                 </div>
             </div>

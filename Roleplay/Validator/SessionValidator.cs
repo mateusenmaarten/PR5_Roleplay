@@ -11,10 +11,10 @@ namespace Roleplay.Validator
     {
         public SessionValidator()
         {
-            RuleFor(x => x.Adventure).NotEmpty();
-            RuleFor(x => x.SessionGamemaster).NotEmpty();
-            RuleFor(x => x.Date).NotEmpty();
-            RuleFor(x => x.SessionPlayers).NotEmpty();
+            RuleFor(x => x.Adventure).NotEmpty().WithMessage("Please select an adventure");
+            RuleFor(x => x.SessionGamemaster).NotEmpty().WithMessage("Please provide who will be the gamemaster this session");
+            RuleFor(x => x.Date).NotEmpty().WithMessage("Please provide a date for the session");
+            RuleFor(x => x.SessionPlayers).NotEmpty().WithMessage("Please select 2 or more players");
         }
     }
 }

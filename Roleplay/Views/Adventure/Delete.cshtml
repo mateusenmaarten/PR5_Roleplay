@@ -4,16 +4,12 @@
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="align-content-center">
-    <h1>Delete adventure</h1>
 
-    <h2>Are you sure you want to delete this beautifull adventure?</h2>
+
+    <h1>Are you sure you want to delete @Html.DisplayFor(a => a.Adventure.Title)?</h1>
 
     <hr />
-    <div class="container">
-        <div class="row">
-
-            <div class="col-sm-6 d-flex align-items-center">
+ 
                 <div class="card w-100 mb-5">
                     <div class="card-header text-center text-light">
                         @Html.DisplayFor(a => a.Adventure.Title)
@@ -27,14 +23,15 @@
                         <li class="list-group-item">Villain: @Html.DisplayFor(a => a.Adventure.MainVillain)</li>
                         <li class="list-group-item">Created by @Html.DisplayFor(a => a.Adventure.Author) </li>
                     </ul>
-                </div>
-            </div>
+                    <div class="card-footer">
+                        <p><a asp-action="Index">I beg forgiveness sir, let me reconsider...</a></p>
+                    </div>
 
-        </div>
-    </div>
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Adventure.AdventureID" />
-        <input type="submit" value="Be gone and never return!" class="btn btn-danger" />
-        <p><a asp-action="Index">I beg forgiveness sir, let me reconsider...</a></p>
-    </form>
-</div>
+                </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Adventure.AdventureID" />
+            <input type="submit" value="Be gone and never return!" class="btn btn-danger" />
+        </form>
+
+    <p></p>

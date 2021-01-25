@@ -8,10 +8,10 @@ namespace Roleplay.Validator
     {
         public CharacterValidator()
         {
-            RuleFor(x => x.CharacterName).NotEmpty();
-            RuleFor(x => x.CharacterAge).NotEmpty().InclusiveBetween(18, 99);
-            RuleFor(x => x.CharacterDescription).NotEmpty();
-            RuleFor(x => x.FavouriteWeapon).NotEmpty();
+            RuleFor(x => x.CharacterName).NotEmpty().WithMessage("Your character needs a name");
+            RuleFor(x => x.CharacterAge).NotEmpty().InclusiveBetween(18, 99).WithMessage("Please provide an age for your character");
+            RuleFor(x => x.CharacterDescription).NotEmpty().WithMessage("Please describe your character");
+            RuleFor(x => x.FavouriteWeapon).NotEmpty().WithMessage("Please provide the favourite weapon of your character");
         }
     }
 }

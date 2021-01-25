@@ -8,9 +8,9 @@ namespace Roleplay.Validator
     {
         public AdventureValidator()
         {
-            RuleFor(x => x.Title).NotEmpty();
-            RuleFor(x => x.Author).NotEmpty();
-            RuleFor(x => x.Summary).NotEmpty().MinimumLength(10);
+            RuleFor(x => x.Title).NotEmpty().WithMessage("Please provide a title for the adventure");
+            RuleFor(x => x.Author).NotEmpty().WithMessage("Please provide the author of this adventure");
+            RuleFor(x => x.Summary).NotEmpty().MinimumLength(10).WithMessage("Please describe the adventure");
         }
     }
 }

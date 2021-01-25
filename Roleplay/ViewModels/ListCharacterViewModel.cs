@@ -1,4 +1,5 @@
-﻿using PR5_Roleplay.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using PR5_Roleplay.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace Roleplay.ViewModels
 {
     public class ListCharacterViewModel
     {
+        public string CharacterSearch { get; set; }
+
         public List<Character> Characters { get; set; }
 
     }

@@ -32,23 +32,25 @@ namespace Roleplay.Controllers
             return View(viewModel);
         }
 
-        // GET: Character/Details/5
-        public async Task<IActionResult> Details(int? id)
+        //GET: Character search
+        public async Task<IActionResult> Search(ListCharacterViewModel viewModel)
         {
-            if (id == null)
+           
+            if (!string.IsNullOrEmpty(viewModel.CharacterSearch))
             {
-                return NotFound();
-            }
-
-            var character = await _context.Characters
+                viewModel.Characters = await _context.Characters
                 .Include(c => c.Player)
-                .FirstOrDefaultAsync(m => m.CharacterID == id);
-            if (character == null)
-            {
-                return NotFound();
+                .Include(c => c.CharacterClass)
+                .Where(c => c.CharacterName.Contains(viewModel.CharacterSearch))
+                .ToListAsync();
             }
-
-            return View(character);
+            else
+            {
+                viewModel.Characters = await _context.Characters
+                .Include(c => c.Player)
+                .Include(c => c.CharacterClass).ToListAsync();
+            }
+            return View("Index",viewModel);
         }
 
         // GET: Character/Create
@@ -156,20 +158,23 @@ namespace Roleplay.Controllers
         [Authorize(Roles = "Admin,GameMaster,Player")]
         public async Task<IActionResult> Delete(int? id)
         {
+            CreateCharacterViewModel viewModel = new CreateCharacterViewModel();
+            viewModel.Character = await _context.Characters
+                 .Include(c => c.Player)
+                 .Include(c => c.CharacterClass)
+                .FirstOrDefaultAsync(m => m.CharacterID == id);
             if (id == null)
             {
                 return NotFound();
             }
 
-            var character = await _context.Characters
-                .Include(c => c.Player)
-                .FirstOrDefaultAsync(m => m.CharacterID == id);
-            if (character == null)
+            
+            if (viewModel.Character == null)
             {
                 return NotFound();
             }
 
-            return View(character);
+            return View(viewModel);
         }
 
         // POST: Character/Delete/5
