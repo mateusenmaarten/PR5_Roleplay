@@ -8,40 +8,43 @@
 
 <hr />
 
-        <form class="container col-md-6" asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Adventure.Title" class="control-label"></label>
-                <input required asp-for="Adventure.Title" class="form-control" />
-                <span asp-validation-for="Adventure.Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adventure.Summary" class="control-label"></label>
-                <textarea required rows="5" asp-for="Adventure.Summary" class="form-control"></textarea>
-                <span asp-validation-for="Adventure.Summary" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adventure.MainVillain" class="control-label"></label>
-                <input asp-for="Adventure.MainVillain" class="form-control" />
-                <span asp-validation-for="Adventure.MainVillain" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adventure.Genre" class="control-label"></label>
-                <input asp-for="Adventure.Genre" class="form-control" />
-                <span asp-validation-for="Adventure.Genre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Adventure.Author" class="control-label"></label>
-                <input required asp-for="Adventure.Author" class="form-control" />
-                <span asp-validation-for="Adventure.Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<form class="container col-md-6" asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Adventure.Title" class="control-label"></label>
+        <input required asp-for="Adventure.Title" class="form-control" />
+        <span asp-validation-for="Adventure.Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adventure.Summary" class="control-label"></label>
+        <textarea required rows="5" asp-for="Adventure.Summary" class="form-control"></textarea>
+        <span asp-validation-for="Adventure.Summary" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adventure.MainVillain" class="control-label"></label>
+        <input asp-for="Adventure.MainVillain" class="form-control" />
+        <span asp-validation-for="Adventure.MainVillain" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adventure.Genre" class="control-label"></label>
+        <input asp-for="Adventure.Genre" class="form-control" />
+        <span asp-validation-for="Adventure.Genre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Adventure.Author" class="control-label"></label>
+        <input required asp-for="Adventure.Author" class="form-control" />
+        <span asp-validation-for="Adventure.Author" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
 
 
 <div>
     <a asp-action="Index">Back to overview</a>
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
