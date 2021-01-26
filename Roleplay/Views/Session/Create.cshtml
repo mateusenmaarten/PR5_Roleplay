@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h1>Create session</h1>
 <hr />
 
@@ -26,8 +27,8 @@
         <span asp-validation-for="Session.SessionGamemaster" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Session.Date" class="control-label">Date and time</label>
-        <input required asp-for="Session.Date"  class="form-control"/>
+        <label asp-for="Session.Date" class="control-label"><i class="fa fa-calendar"></i> Date </label>   
+            <input required asp-for="Session.Date" id="datepicker" class="form-control" type="date" asp-format="{0:yyyy-MM-dd}">     
         <span asp-validation-for="Session.Date" class="text-danger"></span>
     </div>
 
@@ -41,8 +42,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
 
 }
