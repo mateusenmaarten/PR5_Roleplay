@@ -108,7 +108,15 @@ namespace Roleplay.Areas.Identity.Pages.Account
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 user.player.UserID = user.Id;
-                
+
+                if (user.player.IsGameMaster)
+                {
+                    await _userManager.AddToRoleAsync(user, "GameMaster");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "Player");
+                }
 
                 await _context.SaveChangesAsync();
 

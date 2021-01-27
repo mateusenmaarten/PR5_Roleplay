@@ -4,8 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using PR5_Roleplay.Models;
 using Roleplay.Areas.Identity.Data;
+using Roleplay.Data;
 
 namespace Roleplay.Areas.Identity.Pages.Account.Manage
 {
@@ -14,15 +17,18 @@ namespace Roleplay.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<CustomUser> _userManager;
         private readonly SignInManager<CustomUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly ApplicationDbContext _context;
 
         public DeletePersonalDataModel(
             UserManager<CustomUser> userManager,
             SignInManager<CustomUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -66,6 +72,10 @@ namespace Roleplay.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
+
+            Player player = await _context.Players.FirstOrDefaultAsync(x => x.UserID == user.Id);
+            _context.Players.Remove(player);
+            await _context.SaveChangesAsync();
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);
