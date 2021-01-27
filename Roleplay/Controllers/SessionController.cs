@@ -131,7 +131,7 @@ namespace Roleplay.Controllers
                 SessionPlayers = new SelectList(_context.Players, "PlayerID", "Name"),
                 SelectedSessionPlayers = session.SessionPlayers.Select(sp => sp.PlayerID)
             };
-
+            
             return View(viewModel);
         }
 

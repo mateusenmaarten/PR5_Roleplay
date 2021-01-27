@@ -18,7 +18,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Session.Date" class="control-label"><i class="fa fa-calendar"></i> Date </label>
-        <input required asp-for="Session.Date" class="form-control" type="date" asp-format="{0:yyyy-MM-dd}"/>
+        <input required asp-for="Session.Date" class="form-control" type="date" value="dd/MM/yyyy" />
         <span asp-validation-for="Session.Date" class="text-danger"></span>
     </div>
 
