@@ -81,7 +81,7 @@ namespace Roleplay.Controllers
                         playersInSession.Add(sessionPlayer);
                        
                     }
-                    viewModel.Session.UserID = _userManager.GetUserId(this.User);
+                    viewModel.Session.UserName = _userManager.GetUserName(this.User);
                     _context.Add(viewModel.Session);
                     await _context.SaveChangesAsync();
 

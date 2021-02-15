@@ -46,12 +46,12 @@
                     <li class="list-group-item">Created by @Html.DisplayFor(modelItem => item.Player.Name) </li>
                 </ul>
                 <div class="card-footer">
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated && item.UserName == this.User.Identity.Name)
                     {
                         <a asp-action="Edit" asp-route-id="@item.CharacterID">Edit |</a>
                     }
                     
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated && item.UserName == this.User.Identity.Name)
                     {
                         <a asp-action="Delete" asp-route-id="@item.CharacterID">Delete</a>
                     }

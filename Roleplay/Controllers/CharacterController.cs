@@ -81,7 +81,7 @@ namespace Roleplay.Controllers
             {
                 try
                 {
-                    viewModel.Character.UserID = _userManager.GetUserId(this.User);
+                    viewModel.Character.UserName = _userManager.GetUserName(this.User);
                     _context.Add(viewModel.Character);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
