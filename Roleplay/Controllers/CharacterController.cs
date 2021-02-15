@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
+using Roleplay.Areas.Identity.Data;
 using Roleplay.Data;
 using Roleplay.ViewModels;
 
@@ -15,10 +17,12 @@ namespace Roleplay.Controllers
     public class CharacterController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<CustomUser> _userManager;
 
-        public CharacterController(ApplicationDbContext context)
+        public CharacterController(ApplicationDbContext context, UserManager<CustomUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Character
@@ -77,6 +81,7 @@ namespace Roleplay.Controllers
             {
                 try
                 {
+                    viewModel.Character.UserID = _userManager.GetUserId(this.User);
                     _context.Add(viewModel.Character);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));

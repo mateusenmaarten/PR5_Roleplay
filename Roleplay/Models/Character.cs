@@ -12,6 +12,7 @@ namespace PR5_Roleplay.Models
     {
         public int CharacterID { get; set; }
         public int PlayerID { get; set; }
+        public string UserID { get; set; }
         public int CharacterClassID { get; set; }
        
         public string CharacterName { get; set; }

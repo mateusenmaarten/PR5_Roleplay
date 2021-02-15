@@ -9,7 +9,7 @@ namespace PR5_Roleplay.Models
     public class Session
     {
         public int SessionID { get; set; }
-        public int PlayerID { get; set; }
+        public string UserID { get; set; }
         public int AdventureID { get; set; }
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
