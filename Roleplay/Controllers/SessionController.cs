@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
+using Roleplay.Areas.Identity.Data;
 using Roleplay.Data;
 using Roleplay.ViewModels;
 
@@ -15,10 +17,12 @@ namespace Roleplay.Controllers
     public class SessionController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<CustomUser> _userManager;
 
-        public SessionController(ApplicationDbContext context)
+        public SessionController(ApplicationDbContext context, UserManager<CustomUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Session
@@ -77,6 +81,7 @@ namespace Roleplay.Controllers
                         playersInSession.Add(sessionPlayer);
                        
                     }
+                    viewModel.Session.UserID = _userManager.GetUserId(this.User);
                     _context.Add(viewModel.Session);
                     await _context.SaveChangesAsync();
 
