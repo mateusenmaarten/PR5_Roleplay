@@ -32,15 +32,11 @@
                         <li class="list-group-item">Created by @Html.DisplayFor(modelItem => item.Author) </li>
                     </ul>
                     <div class="card-footer">
-                        @if (User.IsInRole("GameMaster") && item.UserName == this.User.Identity.Name)
+                        @if (User.IsInRole("GameMaster") && item.UserName == this.User.Identity.Name || this.User.IsInRole("Admin"))
                         {
                             <a asp-action="Edit" asp-route-id="@item.AdventureID">Edit |</a>
-                        }
-                        @if (User.IsInRole("GameMaster") && item.UserName == this.User.Identity.Name)
-                        {
                             <a asp-action="Delete" asp-route-id="@item.AdventureID">Delete</a>
                         }
-                        
                     </div>
                 </div>
             </div>

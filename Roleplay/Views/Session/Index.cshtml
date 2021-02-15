@@ -53,16 +53,11 @@
                         }
                     </ul>
                     <div class="card-footer">
-                        @if (User.IsInRole("GameMaster") && item.UserName == this.User.Identity.Name)
+                        @if (User.IsInRole("GameMaster") && item.UserName == this.User.Identity.Name || this.User.IsInRole("Admin"))
                         {
-                            <a asp-action="Edit" asp-route-id="@item.SessionID">Edit |</a> 
-                        } 
-
-                        @if (User.IsInRole("GameMaster") && item.UserName == this.User.Identity.Name)
-                        {
+                            <a asp-action="Edit" asp-route-id="@item.SessionID">Edit |</a>
                             <a asp-action="Delete" asp-route-id="@item.SessionID">Delete</a>
                         }
-
                     </div>
                 </div>
             </div>
