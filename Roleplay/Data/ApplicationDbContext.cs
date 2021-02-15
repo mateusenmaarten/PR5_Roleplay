@@ -17,7 +17,6 @@ namespace Roleplay.Data
         }
 
         public DbSet<Adventure> Adventures { get; set; }
-        public DbSet<AdventurePlayer> AdventurePlayers { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<CharacterClass> CharacterClasses  { get; set; }
         public DbSet<Player> Players { get; set; }
@@ -35,9 +34,6 @@ namespace Roleplay.Data
             builder.Entity<Adventure>().Property(p => p.Title).IsRequired();
             builder.Entity<Adventure>().Property(p => p.Summary).IsRequired();
             builder.Entity<Adventure>().Property(p => p.Author).IsRequired();
-
-            //AdventurePlayer
-            builder.Entity<AdventurePlayer>().ToTable("AdventurePlayer");
 
             //Character
             builder.Entity<Character>().ToTable("Character");

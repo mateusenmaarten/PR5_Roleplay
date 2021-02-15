@@ -13,7 +13,7 @@ namespace Roleplay.ViewModels
         public List<Session> Sessions { get; set; }
 
         public List<Player> Players { get; set; }
-        public List<AdventurePlayer> AdventurePlayers { get; set; }
+        
 
         public List<string> GetPlayerNames(Session session)
         {
@@ -35,28 +35,5 @@ namespace Roleplay.ViewModels
             }
             return names;
         }
-
-        //public List<string> GetPlayerCharacterNames(Session session)
-        //{
-        //    List<int> playerIDs = new List<int>();
-        //    foreach (var player in session.SessionPlayers)
-        //    {
-        //        playerIDs.Add(player.PlayerID);
-        //    }
-        //    List<string> characternames = new List<string>();
-        //    foreach (var id in playerIDs)
-        //    {
-        //        foreach (Player advPlayer in AdventurePlayers)
-        //        {
-        //            if (advPlayer.PlayerID == id)
-        //            {
-        //                characternames.Add(player.Name);
-        //            }
-        //        }
-        //    }
-        //    return characternames;
-        //}
-        
-
     }
 }

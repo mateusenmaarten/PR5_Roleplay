@@ -64,7 +64,6 @@ namespace Roleplay.Controllers
                     }
 
                     List<SessionPlayer> playersInSession = new List<SessionPlayer>();
-                    List<AdventurePlayer> playersInAdventure = new List<AdventurePlayer>();
 
                     foreach (int playerID in viewModel.SelectedSessionPlayers)
                     {
@@ -73,23 +72,18 @@ namespace Roleplay.Controllers
                         sessionPlayer.PlayerID = playerID;
                         sessionPlayer.SessionID = viewModel.Session.SessionID;
 
-                        //Welke spelers spelen het avontuur mee
-                        AdventurePlayer adventurePlayer = new AdventurePlayer();
-                        adventurePlayer.PlayerID = playerID;
-                        adventurePlayer.AdventureID = viewModel.Session.AdventureID;
+                        
 
                         playersInSession.Add(sessionPlayer);
-                        playersInAdventure.Add(adventurePlayer);
+                       
                     }
                     _context.Add(viewModel.Session);
                     await _context.SaveChangesAsync();
 
                     Session session = await _context.Sessions
                         .Include(s => s.SessionPlayers)
-                        .Include(a => a.Adventure.AdventurePlayers)
                         .SingleOrDefaultAsync(x => x.SessionID == viewModel.Session.SessionID);
                     session.SessionPlayers.AddRange(playersInSession);
-                    session.Adventure.AdventurePlayers.AddRange(playersInAdventure);
 
                     await _context.SaveChangesAsync();
 
@@ -115,7 +109,6 @@ namespace Roleplay.Controllers
 
             Session session = await _context.Sessions
                 .Include(s => s.SessionPlayers)
-                .Include(a => a.Adventure.AdventurePlayers)
                 .SingleOrDefaultAsync(x => x.SessionID == id);
 
 
@@ -152,7 +145,6 @@ namespace Roleplay.Controllers
             {
                 Session session = await _context.Sessions
                 .Include(s => s.SessionPlayers)
-                .Include(a => a.Adventure.AdventurePlayers)
                 .SingleOrDefaultAsync(x => x.SessionID == id);
 
                 session.AdventureID = viewModel.Session.AdventureID;
@@ -168,7 +160,6 @@ namespace Roleplay.Controllers
                 }
 
                 List<SessionPlayer> playersInSession = new List<SessionPlayer>();
-                List<AdventurePlayer> playersInAdventure = new List<AdventurePlayer>();
 
                 foreach (int playerID in viewModel.SelectedSessionPlayers)
                 {
@@ -177,13 +168,8 @@ namespace Roleplay.Controllers
                     sessionPlayer.PlayerID = playerID;
                     sessionPlayer.SessionID = viewModel.Session.SessionID;
 
-                    //Welke spelers spelen het avontuur mee
-                    AdventurePlayer adventurePlayer = new AdventurePlayer();
-                    adventurePlayer.PlayerID = playerID;
-                    adventurePlayer.AdventureID = viewModel.Session.AdventureID;
 
                     playersInSession.Add(sessionPlayer);
-                    playersInAdventure.Add(adventurePlayer);
                 }
 
                 session.SessionPlayers
@@ -191,12 +177,6 @@ namespace Roleplay.Controllers
                 session.SessionPlayers
                     .AddRange(
                     playersInSession.Where(p => !session.SessionPlayers.Contains(p)));
-
-                session.Adventure.AdventurePlayers
-                    .RemoveAll(ap => !playersInAdventure.Contains(ap));
-                session.Adventure.AdventurePlayers
-                    .AddRange(
-                    playersInAdventure.Where(p => !session.Adventure.AdventurePlayers.Contains(p)));
 
                 _context.Update(session);
                 await _context.SaveChangesAsync();

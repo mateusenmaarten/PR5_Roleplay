@@ -19,7 +19,6 @@ namespace PR5_Roleplay.Models
 
         //navigation prop
         public ICollection<Character> Characters { get; set; }
-        public ICollection<AdventurePlayer> AdventurePlayers { get; set; }
         public ICollection<SessionPlayer> SessionPlayers { get; set; }
 
         //[ForeignKey("CustomUser")]

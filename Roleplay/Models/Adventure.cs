@@ -8,6 +8,7 @@ namespace PR5_Roleplay.Models
     public class Adventure
     {
         public int AdventureID { get; set; }
+        public int PlayerID { get; set; }
         public string Title { get; set; }
         public string Summary { get; set; }
         public string MainVillain { get; set; }
@@ -15,7 +16,7 @@ namespace PR5_Roleplay.Models
         public string Author { get; set; }
 
         //navigation prop
-        public List<AdventurePlayer> AdventurePlayers { get; set; }
+       
         public ICollection<Session> Sessions { get; set; }
     }
 }

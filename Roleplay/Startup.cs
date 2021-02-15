@@ -121,28 +121,29 @@ namespace Roleplay
 
             IdentityResult roleResult;
 
-            //bool roleCheck = await RoleManager.RoleExistsAsync("Admin");
-            //if (!roleCheck)
-            //{
-            //    roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
-            //}
-
-            //bool roleCheck = await RoleManager.RoleExistsAsync("GameMaster");
-            //if (!roleCheck)
-            //{
-            //    roleResult = await RoleManager.CreateAsync(new IdentityRole("GameMaster"));
-            //}
-
-            bool roleCheck = await RoleManager.RoleExistsAsync("Player");
+            bool roleCheck = await RoleManager.RoleExistsAsync("Admin");
             if (!roleCheck)
+            {
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            bool roleCheckG = await RoleManager.RoleExistsAsync("GameMaster");
+            if (!roleCheckG)
+            {
+                roleResult = await RoleManager.CreateAsync(new IdentityRole("GameMaster"));
+            }
+
+            bool roleCheckP = await RoleManager.RoleExistsAsync("Player");
+            if (!roleCheckP)
             {
                 roleResult = await RoleManager.CreateAsync(new IdentityRole("Player"));
             }
-            IdentityUser user = Context.Users.FirstOrDefault(u => u.Email == "jan@fake.com");
+
+            IdentityUser user = Context.Users.FirstOrDefault(u => u.Email == "roleplayAdmin@admin.be");
             if (user != null)
             {
                 DbSet<IdentityUserRole<string>> roles = Context.UserRoles;
-                IdentityRole role = Context.Roles.FirstOrDefault(r => r.Name == "Player");
+                IdentityRole role = Context.Roles.FirstOrDefault(r => r.Name == "Admin");
                 if (role != null)
                 {
                     if (!roles.Any(Ur => Ur.UserId == user.Id && Ur.RoleId == role.Id))

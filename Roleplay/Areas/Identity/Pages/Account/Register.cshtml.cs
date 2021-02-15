@@ -19,7 +19,7 @@ using Roleplay.Data;
 
 namespace Roleplay.Areas.Identity.Pages.Account
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<CustomUser> _signInManager;
