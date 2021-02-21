@@ -13,8 +13,12 @@ namespace Roleplay.ViewModels
 
         public SelectList Adventures { get; set; }
 
-        public IEnumerable<SelectListItem> SessionPlayers { get; set; }
+        public SelectList SessionPlayers { get; set; }
         public IEnumerable<int> SelectedSessionPlayers { get; set; }
+        public IEnumerable<Player> SelectedPlayers { get; set; }
+
+
+        public SelectList Characters { get; set; }
 
     }
 }

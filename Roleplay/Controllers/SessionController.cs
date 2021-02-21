@@ -127,7 +127,9 @@ namespace Roleplay.Controllers
                 Session = session,
                 Adventures = new SelectList(_context.Adventures, "AdventureID", "Title"),
                 SessionPlayers = new SelectList(_context.Players, "PlayerID", "Name"),
-                SelectedSessionPlayers = session.SessionPlayers.Select(sp => sp.PlayerID)
+                Characters = new SelectList(_context.Characters, "CharacterID", "CharacterName"),
+                SelectedSessionPlayers = session.SessionPlayers.Select(sp => sp.PlayerID),
+                SelectedPlayers = session.SessionPlayers.Select(p => p.Player)
             };
             
             return View(viewModel);
@@ -171,11 +173,13 @@ namespace Roleplay.Controllers
                     //Wie speelt mee in de session
                     SessionPlayer sessionPlayer = new SessionPlayer();
                     sessionPlayer.PlayerID = playerID;
+                    //sessionPlayer.CharacterID = characterID;
                     sessionPlayer.SessionID = viewModel.Session.SessionID;
-
 
                     playersInSession.Add(sessionPlayer);
                 }
+
+
 
                 session.SessionPlayers
                     .RemoveAll(sp => !playersInSession.Contains(sp));

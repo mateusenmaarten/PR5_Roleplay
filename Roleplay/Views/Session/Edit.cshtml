@@ -11,6 +11,7 @@
 <form class="container col-md-6" asp-action="Edit">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="Session.SessionID" />
+
     <div class="form-group">
         <label asp-for="Session.AdventureID" class="control-label">Adventure</label>
         <select required asp-for="Session.AdventureID" class="form-control" asp-items="Model.Adventures"></select>
@@ -28,6 +29,17 @@
         <span asp-validation-for="SelectedSessionPlayers" class="text-danger"></span>
     </div>
 
+    @foreach (var player in Model.SelectedPlayers)
+    {
+        <div class="form-group">
+
+            <label class="control-label">@player.Name Played Character</label>
+            <select class="form-control" asp-items="Model.Characters" id="@Model.Characters.SelectedValue" asp-for="Session.SessionPlayers" ></select>
+            <span class="text-danger"></span>
+        </div>
+    }
+
+
     <div class="form-group">
         <label asp-for="Session.Recap" class="control-label">Recap</label>
         <textarea rows="5" asp-for="Session.Recap" class="form-control"></textarea>
@@ -42,7 +54,7 @@
 
     <div class="form-group form-check">
         <label class="form-check-label">Session played?</label><p></p>
-        <input class="form-check-input" asp-for="Session.IsPlayed" /> 
+        <input class="form-check-input" asp-for="Session.IsPlayed" />
         @Html.DisplayNameFor(model => model.Session.IsPlayed)
     </div>
     <div class="form-group">

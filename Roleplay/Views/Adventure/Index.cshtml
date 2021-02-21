@@ -8,7 +8,7 @@
 <h1 class="text-center">Adventures</h1>
 
 <p></p>
-    @if (User.IsInRole("GameMaster"))
+    @if (User.IsInRole("GameMaster") || User.IsInRole("Admin"))
     {
         <a asp-action="Create">Create a new adventure</a>
     }
