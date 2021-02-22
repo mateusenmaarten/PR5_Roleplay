@@ -43,7 +43,8 @@ namespace Roleplay
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => { });
 
-           
+            services.AddSwaggerGen();
+
             services.AddTransient<IValidator<Character>, CharacterValidator>();
             services.AddTransient<IValidator<Adventure>, AdventureValidator>();
             services.AddTransient<IValidator<Session>, SessionValidator>();
@@ -70,6 +71,8 @@ namespace Roleplay
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +94,11 @@ namespace Roleplay
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseRouting();
 
