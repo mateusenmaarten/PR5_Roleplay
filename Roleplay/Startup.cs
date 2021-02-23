@@ -41,9 +41,10 @@ namespace Roleplay
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews()
-                .AddFluentValidation(fv => { });
+                .AddFluentValidation(fv => { })
+                .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            services.AddSwaggerGen();
+            
 
             services.AddTransient<IValidator<Character>, CharacterValidator>();
             services.AddTransient<IValidator<Adventure>, AdventureValidator>();
@@ -72,7 +73,7 @@ namespace Roleplay
                 options.User.RequireUniqueEmail = false;
             });
 
-            
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,7 +92,7 @@ namespace Roleplay
             CultureInfo cultureInfoDutchBelgium = new CultureInfo("nl-BE");
             CultureInfo.DefaultThreadCurrentCulture = cultureInfoDutchBelgium;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfoDutchBelgium;
-
+          
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSwagger();

@@ -25,7 +25,10 @@ namespace Roleplay.Controllers.api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
         {
-            return await _context.Characters.ToListAsync();
+            return await _context.Characters
+                .Include(x => x.CharacterClass)
+                .Include(x => x.Player)
+                .ToListAsync();
         }
 
         // GET: api/Character/5

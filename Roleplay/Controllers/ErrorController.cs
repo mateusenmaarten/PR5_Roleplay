@@ -9,6 +9,7 @@ namespace Roleplay.Controllers
     public class ErrorController : Controller
     {
         [Route("Error/{statusCode}")]
+        [HttpGet]
         public IActionResult HttpStatusCodeHandler(int statusCode)
         {
             switch (statusCode)
