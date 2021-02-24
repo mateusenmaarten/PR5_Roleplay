@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
-using Roleplay.Data;
+using Roleplay.Data.UnitOfWork;
 
 namespace Roleplay.Controllers.api
 {
@@ -14,18 +12,18 @@ namespace Roleplay.Controllers.api
     [ApiController]
     public class SessionController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _uow;
 
-        public SessionController(ApplicationDbContext context)
+        public SessionController(IUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         // GET: api/Session
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {
-            return await _context.Sessions
+            return await _uow.SessionRepository.GetAll()
                 .Include(a => a.Adventure)
                 .Include(s => s.SessionPlayers)
                 .ToListAsync();
@@ -35,7 +33,7 @@ namespace Roleplay.Controllers.api
         [HttpGet("{id}")]
         public async Task<ActionResult<Session>> GetSession(int id)
         {
-            var session = await _context.Sessions.FindAsync(id);
+            var session = await _uow.SessionRepository.GetById(id);
 
             if (session == null)
             {
@@ -56,22 +54,16 @@ namespace Roleplay.Controllers.api
                 return BadRequest();
             }
 
-            _context.Entry(session).State = EntityState.Modified;
+            _uow.SessionRepository.Update(session);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _uow.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                if (!SessionExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                //foutmelding loggen
+                return BadRequest();
             }
 
             return NoContent();
@@ -83,8 +75,17 @@ namespace Roleplay.Controllers.api
         [HttpPost]
         public async Task<ActionResult<Session>> PostSession(Session session)
         {
-            _context.Sessions.Add(session);
-            await _context.SaveChangesAsync();
+            _uow.SessionRepository.Create(session);
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (Exception)
+            {
+                //foutmelding loggen
+                return BadRequest();
+            }
+            
 
             return CreatedAtAction("GetSession", new { id = session.SessionID }, session);
         }
@@ -93,21 +94,24 @@ namespace Roleplay.Controllers.api
         [HttpDelete("{id}")]
         public async Task<ActionResult<Session>> DeleteSession(int id)
         {
-            var session = await _context.Sessions.FindAsync(id);
+            var session = await _uow.SessionRepository.GetById(id);
             if (session == null)
             {
                 return NotFound();
             }
 
-            _context.Sessions.Remove(session);
-            await _context.SaveChangesAsync();
+            _uow.SessionRepository.Delete(session);
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (Exception)
+            {
+                //foutmelding loggen
+                return BadRequest();
+            }
 
             return NoContent();
-        }
-
-        private bool SessionExists(int id)
-        {
-            return _context.Sessions.Any(e => e.SessionID == id);
         }
     }
 }

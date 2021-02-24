@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
-using Roleplay.Data;
+using Roleplay.Data.UnitOfWork;
 
 namespace Roleplay.Controllers.api
 {
@@ -16,11 +13,11 @@ namespace Roleplay.Controllers.api
     [ApiController]
     public class CharacterController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _uow;
 
-        public CharacterController(ApplicationDbContext context)
+        public CharacterController(IUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         // GET: api/Character
@@ -28,7 +25,7 @@ namespace Roleplay.Controllers.api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
         {
-            return await _context.Characters
+            return await _uow.CharacterRepository.GetAll()
                 .Include(x => x.CharacterClass)
                 .Include(x => x.Player)
                 .ToListAsync();
@@ -38,7 +35,7 @@ namespace Roleplay.Controllers.api
         [HttpGet("{id}")]
         public async Task<ActionResult<Character>> GetCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
+            Character character = await _uow.CharacterRepository.GetById(id);
 
             if (character == null)
             {
@@ -59,22 +56,16 @@ namespace Roleplay.Controllers.api
                 return BadRequest();
             }
 
-            _context.Entry(character).State = EntityState.Modified;
+            _uow.CharacterRepository.Update(character);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _uow.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                if (!CharacterExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                //foutmelding loggen
+                return BadRequest();
             }
 
             return NoContent();
@@ -86,8 +77,16 @@ namespace Roleplay.Controllers.api
         [HttpPost]
         public async Task<ActionResult<Character>> PostCharacter(Character character)
         {
-            _context.Characters.Add(character);
-            await _context.SaveChangesAsync();
+            _uow.CharacterRepository.Create(character);
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (Exception)
+            {
+                //foutmelding loggen
+                return BadRequest();
+            }
 
             return CreatedAtAction("GetCharacter", new { id = character.CharacterID }, character);
         }
@@ -96,21 +95,26 @@ namespace Roleplay.Controllers.api
         [HttpDelete("{id}")]
         public async Task<ActionResult<Character>> DeleteCharacter(int id)
         {
-            var character = await _context.Characters.FindAsync(id);
+            var character = await _uow.CharacterRepository.GetById(id);
             if (character == null)
             {
                 return NotFound();
             }
 
-            _context.Characters.Remove(character);
-            await _context.SaveChangesAsync();
+            _uow.CharacterRepository.Delete(character);
+
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (Exception)
+            {
+                //foutmelding loggen
+                return BadRequest();
+            }
+            
 
             return NoContent();
-        }
-
-        private bool CharacterExists(int id)
-        {
-            return _context.Characters.Any(e => e.CharacterID == id);
         }
     }
 }
