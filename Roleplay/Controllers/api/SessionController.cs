@@ -25,7 +25,10 @@ namespace Roleplay.Controllers.api
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Session>>> GetSessions()
         {
-            return await _context.Sessions.ToListAsync();
+            return await _context.Sessions
+                .Include(a => a.Adventure)
+                .Include(s => s.SessionPlayers)
+                .ToListAsync();
         }
 
         // GET: api/Session/5

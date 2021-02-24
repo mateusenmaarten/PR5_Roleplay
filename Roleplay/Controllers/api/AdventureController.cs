@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data;
+using Roleplay.Data.Repository;
+using Roleplay.Data.UnitOfWork;
 
 namespace Roleplay.Controllers.api
 {
@@ -14,25 +18,26 @@ namespace Roleplay.Controllers.api
     [ApiController]
     public class AdventureController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _uow;
 
-        public AdventureController(ApplicationDbContext context)
+        public AdventureController(IUnitOfWork uow)
         {
-            _context = context;
+            _uow = uow;
         }
 
         // GET: api/Adventure
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Adventure>>> GetAdventures()
         {
-            return await _context.Adventures.ToListAsync();
+            return await _uow.AdventureRepository.GetAll().ToListAsync();
         }
 
         // GET: api/Adventure/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Adventure>> GetAdventure(int id)
         {
-            var adventure = await _context.Adventures.FindAsync(id);
+            Adventure adventure = await _uow.AdventureRepository.GetById(id);
 
             if (adventure == null)
             {
@@ -53,22 +58,16 @@ namespace Roleplay.Controllers.api
                 return BadRequest();
             }
 
-            _context.Entry(adventure).State = EntityState.Modified;
+            _uow.AdventureRepository.Update(adventure);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _uow.SaveAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception)
             {
-                if (!AdventureExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                //foutmelding loggen
+                return BadRequest();
             }
 
             return NoContent();
@@ -80,8 +79,17 @@ namespace Roleplay.Controllers.api
         [HttpPost]
         public async Task<ActionResult<Adventure>> PostAdventure(Adventure adventure)
         {
-            _context.Adventures.Add(adventure);
-            await _context.SaveChangesAsync();
+            _uow.AdventureRepository.Create(adventure);
+            try
+            {
+                await _uow.SaveAsync();
+            }
+            catch (Exception)
+            {
+                //foutmelding loggen
+                return BadRequest();
+            }
+            
 
             return CreatedAtAction("GetAdventure", new { id = adventure.AdventureID }, adventure);
         }
@@ -90,21 +98,28 @@ namespace Roleplay.Controllers.api
         [HttpDelete("{id}")]
         public async Task<ActionResult<Adventure>> DeleteAdventure(int id)
         {
-            var adventure = await _context.Adventures.FindAsync(id);
+            Adventure adventure = await _uow.AdventureRepository.GetById(id);
             if (adventure == null)
             {
                 return NotFound();
             }
 
-            _context.Adventures.Remove(adventure);
-            await _context.SaveChangesAsync();
+            _uow.AdventureRepository.Delete(adventure);
+
+            try
+            {
+                
+                await _uow.SaveAsync();
+            }
+            catch (Exception)
+            {
+                //foutmelding loggen
+                return BadRequest();
+            }
+
+            
 
             return NoContent();
-        }
-
-        private bool AdventureExists(int id)
-        {
-            return _context.Adventures.Any(e => e.AdventureID == id);
         }
     }
 }
