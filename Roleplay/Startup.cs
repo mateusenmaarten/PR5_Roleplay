@@ -68,6 +68,14 @@ namespace Roleplay
                     };
                 });
 
+            // Add Cors
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             services.AddControllersWithViews()
                 .AddFluentValidation(fv => { })
                 .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -150,7 +158,11 @@ namespace Roleplay
             CultureInfo cultureInfoDutchBelgium = new CultureInfo("nl-BE");
             CultureInfo.DefaultThreadCurrentCulture = cultureInfoDutchBelgium;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfoDutchBelgium;
-          
+
+            app.UseCors(
+                options => options.WithOrigins("*").AllowAnyMethod()
+            );
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSwagger();

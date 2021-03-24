@@ -12,6 +12,7 @@ namespace Roleplay.Data.UnitOfWork
         private readonly ApplicationDbContext _context;
         IGenericRepository<Adventure> adventureRepository;
         IGenericRepository<Character> characterRepository;
+        IGenericRepository<CharacterClass> characterClassRepository;
         IGenericRepository<Session> sessionRepository;
 
         public UnitOfWork(ApplicationDbContext context)
@@ -39,6 +40,18 @@ namespace Roleplay.Data.UnitOfWork
                     this.characterRepository = new GenericRepository<Character>(_context);
                 }
                 return characterRepository;
+            }
+        }
+
+        public IGenericRepository<CharacterClass> CharacterClassRepository
+        {
+            get
+            {
+                if (this.characterClassRepository == null)
+                {
+                    this.characterClassRepository = new GenericRepository<CharacterClass>(_context);
+                }
+                return characterClassRepository;
             }
         }
 

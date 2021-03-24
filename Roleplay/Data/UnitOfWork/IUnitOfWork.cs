@@ -11,6 +11,7 @@ namespace Roleplay.Data.UnitOfWork
     {
         IGenericRepository<Adventure> AdventureRepository { get; }
         IGenericRepository<Character> CharacterRepository { get; }
+        IGenericRepository<CharacterClass> CharacterClassRepository { get; }
         IGenericRepository<Session> SessionRepository { get; }
         Task SaveAsync();
     }
