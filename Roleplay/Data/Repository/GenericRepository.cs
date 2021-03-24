@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Roleplay.Data.Repository
 {
-    public class GenericRepository<TEntity> : IUnitOfWork<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         private readonly ApplicationDbContext _context;
 

@@ -9,9 +9,9 @@ namespace Roleplay.Data.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        IUnitOfWork<Adventure> AdventureRepository { get; }
-        IUnitOfWork<Character> CharacterRepository { get; }
-        IUnitOfWork<Session> SessionRepository { get; }
+        IGenericRepository<Adventure> AdventureRepository { get; }
+        IGenericRepository<Character> CharacterRepository { get; }
+        IGenericRepository<Session> SessionRepository { get; }
         Task SaveAsync();
     }
 }

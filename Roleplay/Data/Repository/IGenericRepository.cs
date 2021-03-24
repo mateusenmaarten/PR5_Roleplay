@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Roleplay.Data.Repository
 {
-    public interface IUnitOfWork<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
         IQueryable<TEntity> GetAll();
         Task<TEntity> GetById(int id);

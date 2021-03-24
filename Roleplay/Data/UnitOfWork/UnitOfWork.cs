@@ -10,15 +10,15 @@ namespace Roleplay.Data.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        IUnitOfWork<Adventure> adventureRepository;
-        IUnitOfWork<Character> characterRepository;
-        IUnitOfWork<Session> sessionRepository;
+        IGenericRepository<Adventure> adventureRepository;
+        IGenericRepository<Character> characterRepository;
+        IGenericRepository<Session> sessionRepository;
 
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
-        public IUnitOfWork<Adventure> AdventureRepository
+        public IGenericRepository<Adventure> AdventureRepository
         {
             get
             {
@@ -30,7 +30,7 @@ namespace Roleplay.Data.UnitOfWork
             }
         }
 
-        public IUnitOfWork<Character> CharacterRepository
+        public IGenericRepository<Character> CharacterRepository
         {
             get
             {
@@ -42,7 +42,7 @@ namespace Roleplay.Data.UnitOfWork
             }
         }
 
-        public IUnitOfWork<Session> SessionRepository
+        public IGenericRepository<Session> SessionRepository
         {
             get
             {
