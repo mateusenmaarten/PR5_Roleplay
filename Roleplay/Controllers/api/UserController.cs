@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Roleplay.Areas.Identity.Data;
@@ -43,7 +44,9 @@ namespace Roleplay.Controllers.api
 
             if (signInResult.Succeeded)
             {
-                CustomUser customUser = _userManager.Users.SingleOrDefault(r => r.Email == apiUser.Username);
+                CustomUser customUser = _userManager.Users.Include(x => x.player).SingleOrDefault(r => r.Email == apiUser.Username);
+                apiUser.PlayerId = customUser.player.PlayerID;
+                apiUser.Firstname = customUser.player.FirstName;
                 apiUser.Token = GenerateJwtToken(apiUser.Username, customUser).ToString();
 
                 return apiUser;

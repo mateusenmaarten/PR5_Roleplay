@@ -160,7 +160,7 @@ namespace Roleplay
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfoDutchBelgium;
 
             app.UseCors(
-                options => options.WithOrigins("*").AllowAnyMethod()
+                options => options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader()
             );
 
             app.UseHttpsRedirection();
