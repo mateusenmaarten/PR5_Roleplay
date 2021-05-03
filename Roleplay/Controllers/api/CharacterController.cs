@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data.UnitOfWork;
+using System.Linq;
 
 namespace Roleplay.Controllers.api
 {
@@ -34,7 +35,10 @@ namespace Roleplay.Controllers.api
         [HttpGet("{id}")]
         public async Task<ActionResult<Character>> GetCharacter(int id)
         {
-            Character character = await _uow.CharacterRepository.GetById(id);
+            //Character character = await _uow.CharacterRepository.GetById(id);
+            Character character = await _uow.CharacterRepository.GetAll().Where(x => x.CharacterID == id)
+                .Include(x => x.Player)
+                .Include(x => x.CharacterClass).SingleOrDefaultAsync();
 
             if (character == null)
             {
