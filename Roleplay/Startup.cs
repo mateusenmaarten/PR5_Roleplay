@@ -74,6 +74,7 @@ namespace Roleplay
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
+                       
             }));
 
             services.AddControllersWithViews()
@@ -159,9 +160,7 @@ namespace Roleplay
             CultureInfo.DefaultThreadCurrentCulture = cultureInfoDutchBelgium;
             CultureInfo.DefaultThreadCurrentUICulture = cultureInfoDutchBelgium;
 
-            app.UseCors(
-                options => options.WithOrigins("*").AllowAnyMethod().AllowAnyHeader()
-            );
+            app.UseCors("MyPolicy");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

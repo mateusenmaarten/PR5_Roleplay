@@ -6,9 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using PR5_Roleplay.Models;
 using Roleplay.Data.UnitOfWork;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Roleplay.Controllers.api
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class CharacterController : ControllerBase
@@ -21,7 +24,6 @@ namespace Roleplay.Controllers.api
         }
 
         // GET: api/Character
-        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
         {
@@ -51,6 +53,7 @@ namespace Roleplay.Controllers.api
         // PUT: api/Character/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCharacter(int id, Character character)
         {
@@ -77,6 +80,7 @@ namespace Roleplay.Controllers.api
         // POST: api/Character
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpPost]
         public async Task<ActionResult<Character>> PostCharacter(Character character)
         {
@@ -95,6 +99,7 @@ namespace Roleplay.Controllers.api
         }
 
         // DELETE: api/Character/5
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Character>> DeleteCharacter(int id)
         {
